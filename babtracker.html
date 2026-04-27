@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BABuddy - BAB Tracker</title>
+  <link rel="stylesheet" href="babtracker.css" />
+</head>
+<body>
+  <div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="icon/icon_usus.png" class="logo-icon" alt="logo" />
+        <div class="logo-text">BABuddy</div>
+      </div>
+
+      <div class="menu-section">
+        <div class="menu-title">MENU</div>
+        <nav class="menu">
+          <a href="dashboard.html" class="menu-item">
+            <span class="menu-icon">📊</span>
+            <span class="menu-text">Dashboard</span>
+          </a>
+          <a href="watertracker.html" class="menu-item">
+            <img src="icon/icon_air.png" class="menu-icon-img" alt="air" />
+            <span class="menu-text">Pemantau Air</span>
+          </a>
+          <a href="babtracker.html" class="menu-item active">
+            <img src="icon/icon_bab.png" class="menu-icon-img" alt="bab" />
+            <span class="menu-text">Pemantau BAB</span>
+          </a>
+          <a href="foodtracker.html" class="menu-item">
+            <img src="icon/icon_makanan.png" class="menu-icon-img" alt="makanan" />
+            <span class="menu-text">Pemantau Asupan Makanan</span>
+          </a>
+          <a href="notifikasi.html" class="menu-item">
+            <img src="icon/icon_notifikasi.png" class="menu-icon-img" alt="notifikasi" />
+            <span class="menu-text">Notifikasi</span>
+          </a>
+          <a href="analisis.html" class="menu-item">
+            <img src="icon/icon_analisis.png" class="menu-icon-img" alt="analisis" />
+            <span class="menu-text">Analisis Mingguan</span>
+          </a>
+          <a href="diagnosis.html" class="menu-item">
+            <img src="icon/icon_analisis.png" class="menu-icon-img" alt="diagnosis" />
+            <span class="menu-text">Diagnosis</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="bottom-menu">
+        <a href="pengaturan.html" class="menu-item">
+          <img src="icon/icon_setting.png" class="menu-icon-img" alt="pengaturan" />
+          <span class="menu-text">Pengaturan Akun</span>
+        </a>
+        <a href="login.html" class="menu-item" id="logoutBtn">
+          <img src="icon/icon_logout.png" class="menu-icon-img" alt="logout" />
+          <span class="menu-text">Keluar</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- HEADER -->
+      <header class="header">
+        <div class="header-left">
+          <img src="icon/icon_bab.png" class="header-icon" alt="bab" />
+          <h1>Pemantau BAB</h1>
+        </div>
+        <div class="header-right">
+          <div class="search-bar">
+            <input type="text" placeholder="" id="searchInput" />
+            <img src="icon/icon_search.png" class="search-icon" alt="search" onclick="handleSearch()" />
+          </div>
+          <button class="btn-settings" title="Settings">
+            Settings
+            <img src="icon/icon_setting.png" alt="Settings" />
+          </button>
+          <button class="header-btn" title="Notifikasi">
+            <img src="icon/icon_notifikasi.png" alt="Notifikasi" />
+          </button>
+          <button class="header-btn" title="Profil">
+            <img src="icon/icon_profile.png" alt="Profil" />
+          </button>
+        </div>
+      </header>
+
+      <!-- CONTENT — sama struktur dengan water tracker -->
+      <div class="water-content">
+        <p class="greeting">Halo, Penpen!</p>
+
+        <!-- BAB CARD — sama struktur dengan water card -->
+        <div class="water-card">
+          <div class="water-visual">
+            <img src="icon/icon_pup.png" alt="poop" class="poop-img" />
+          </div>
+          <div class="water-info">
+            <h2 id="babAmountText">Belum ada data hari ini</h2>
+            <div class="progress-bar-wrapper">
+              <div class="progress-track">
+                <div class="progress-value" id="statusFill" style="width: 0%;
+                     background: linear-gradient(to right, #E8894D, #D4720B);"></div>
+              </div>
+            </div>
+            <div class="water-actions">
+              <button class="btn-add" onclick="handleTambah()">+ Tambah</button>
+              <button class="btn-delete" onclick="handleHapus()">Hapus</button>
+              <button class="btn-delete" onclick="handleDetail()">
+                <img src="icon/icon_analisis.png" style="width:14px;height:14px;object-fit:contain;" alt="detail" />
+                Detail
+              </button>
+            </div>
+          </div>
+          <div class="water-status" style="background-color: #D4720B;">
+            <p>status hari ini</p>
+            <strong id="statusText">Belum BAB</strong>
+          </div>
+        </div>
+
+        <!-- BOWEL LOG  -->
+        <div class="water-log">
+          <h3>Bowel Log</h3>
+          <div class="log-list" id="bowelLogList">
+            <!-- diisi JS -->
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL TAMBAH -->
+  <div class="modal-overlay" id="modalTambah">
+    <div class="modal">
+      <h3>Tambah Catatan BAB</h3>
+      <label>Hari</label>
+      <input type="text" id="inputHariDisplay" readonly
+        style="background:#f0f0f0; color:#888; cursor:not-allowed;" />
+      <select id="inputHari" style="display:none;">
+        <option>Minggu</option><option>Senin</option><option>Selasa</option>
+        <option>Rabu</option><option>Kamis</option><option>Jumat</option><option>Sabtu</option>
+      </select>
+      <label>Frekuensi (kali)</label>
+      <input type="number" id="inputFrek" min="0" max="10" value="1" />
+      <label>Tipe</label>
+      <select id="inputTipe">
+        <option>Normal</option><option>Lembek</option><option>Keras</option>
+      </select>
+      <label>Darah</label>
+      <select id="inputDarah">
+        <option>Berdarah</option><option>Normal</option>
+      </select>
+      <div class="modal-actions">
+        <button onclick="simpanCatatan()">Simpan</button>
+        <button onclick="closeModal('modalTambah')">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DETAIL -->
+  <div class="modal-overlay" id="modalDetail">
+    <div class="modal">
+      <h3>Detail</h3>
+      <div id="detailContent"></div>
+      <div class="modal-actions">
+        <button onclick="closeModal('modalDetail')">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL HAPUS -->
+  <div class="modal-overlay" id="modalHapus">
+    <div class="modal">
+      <h3>Hapus Data BAB</h3>
+      <label>Pilih hari yang ingin dihapus</label>
+      <select id="hapusHari"></select>
+      <div class="modal-actions">
+        <button onclick="konfirmasiHapus()">Hapus</button>
+        <button onclick="closeModal('modalHapus')">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="babtracker.js"></script>
+</body>
+</html>

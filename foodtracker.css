@@ -1,0 +1,612 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+/* ==================== SIDEBAR ==================== */
+.sidebar {
+    width: 250px;
+    background: #F9E19F;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #8B4513;
+}
+
+.menu-section {
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.menu-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #8B4513;
+    margin-bottom: 12px;
+    padding-left: 10px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #8B4513;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.menu-item:hover { background-color: rgba(139, 69, 19, 0.1); }
+
+.menu-item.active {
+    background-color: rgba(139, 69, 19, 0.2);
+    font-weight: 600;
+}
+
+.menu-icon,
+.menu-icon-img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.menu-text { line-height: 1.2; }
+
+.bottom-menu {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid rgba(139, 69, 19, 0.15);
+}
+
+/* ==================== MAIN CONTENT ==================== */
+.main-content {
+    flex: 1;
+    background-color: #FFCB4C;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+    background-color: #FFCB4C;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    flex-shrink: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.header-left h1 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #8B4513;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 8px 16px;
+    gap: 8px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    width: 200px;
+}
+
+.search-icon {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.btn-settings {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #fff;
+    border: none;
+    border-radius: 25px;
+    height: 40px;
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #8B4513;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-settings:hover { transform: translateY(-2px); }
+
+.btn-settings img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.header-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.header-btn:hover { transform: translateY(-2px); }
+
+.header-btn img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+/* ==================== FOOD CONTENT ==================== */
+.food-content {
+    flex: 1;
+    padding: 20px 30px 30px 30px;
+    overflow-y: auto;
+}
+
+.greeting {
+    font-size: 16px;
+    font-weight: bold;
+    color: #8B4513;
+    margin-bottom: 16px;
+}
+
+/* ==================== FOOD GRID ==================== */
+.food-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+/* Susu di tengah — span penuh atau posisi khusus */
+.food-card:nth-child(3) {
+    grid-column: 1 / 2;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+/* Layout: pokok, lauk | susu (tengah) | buah, sayur */
+.food-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 18px;
+}
+
+.food-card:nth-child(1) { grid-column: 1; grid-row: 1; }
+.food-card:nth-child(2) { grid-column: 2; grid-row: 1; }
+.food-card:nth-child(3) { grid-column: 1 / 3; justify-self: center; width: 48%; grid-row: 2; }
+.food-card:nth-child(4) { grid-column: 1; grid-row: 3; }
+.food-card:nth-child(5) { grid-column: 2; grid-row: 3; }
+
+/* ==================== FOOD CARD ==================== */
+.food-card {
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 200px;
+}
+
+.card-orange { background-color: #F5A623; }
+.card-red    { background-color: #E53935; }
+.card-blue   { background-color: #4FC3F7; }
+.card-pink   { background-color: #E91E8C; }
+.card-green  { background-color: #43A047; }
+
+.card-header-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-icon-wrap {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-cat-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.card-subtitle {
+    font-size: 11px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+}
+
+/* Body card — kotak putih isi makanan */
+.card-body {
+    background: rgba(255,255,255,0.9);
+    border-radius: 10px;
+    padding: 12px 14px;
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.empty-state {
+    font-size: 13px;
+    color: #aaa;
+    font-style: italic;
+    margin: auto;
+    text-align: center;
+}
+
+/* Item makanan dalam card body */
+.food-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.food-item-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+}
+
+.food-item-name::before {
+    content: ". ";
+}
+
+.food-item-time {
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.food-item-time::before {
+    content: "🕐";
+    font-size: 11px;
+}
+
+.card-hint {
+    font-size: 11px;
+    color: rgba(255,255,255,0.8);
+    font-style: italic;
+}
+
+/* Tombol tambah makanan */
+.card-btn {
+    background-color: rgba(255,255,255,0.25);
+    border: 2px solid rgba(255,255,255,0.6);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.card-btn:hover {
+    background-color: rgba(255,255,255,0.4);
+    transform: translateY(-1px);
+}
+
+/* ==================== MODAL ==================== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.48);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 32px;
+    width: 320px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+.modal h3 {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 18px;
+    color: #333;
+}
+
+.modal label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #888;
+    margin: 10px 0 4px;
+}
+
+.modal input,
+.modal select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid #e0d0a0;
+    border-radius: 10px;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    background: #fafafa;
+    outline: none;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    flex: 1;
+    padding: 11px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid #D4A04C;
+    background: #D4A04C;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+.modal-actions button:last-child {
+    background: #fff;
+    color: #D4A04C;
+}
+
+.modal-actions button:hover { opacity: 0.85; }
+
+/* ==================== LABEL SUDAH DIKONSUMSI ==================== */
+.consumed-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+/* ==================== WEEKLY HISTORY ==================== */
+.weekly-history {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-top: 18px;
+}
+
+.weekly-history h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.history-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #F0F0F0;
+    gap: 16px;
+}
+
+.history-item:last-child { border-bottom: none; }
+
+.history-day {
+    font-size: 14px;
+    font-weight: 700;
+    color: #D4A04C;
+    min-width: 80px;
+    flex-shrink: 0;
+    padding-top: 2px;
+}
+
+.history-day.today {
+    color: #C08F3A;
+}
+
+.today-badge {
+    background: #D4A04C;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+.history-foods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1;
+}
+
+.history-tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.tag-pokok { background-color: #F5A623; }
+.tag-lauk  { background-color: #E53935; }
+.tag-susu  { background-color: #29B6F6; }
+.tag-buah  { background-color: #E91E8C; }
+.tag-sayur { background-color: #43A047; }
+
+.history-empty {
+    font-size: 13px;
+    color: #bbb;
+    font-style: italic;
+}
+
+/* ==================== EDIT & HAPUS ==================== */
+
+/* Food item di card — flex dengan tombol aksi */
+.food-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.food-item-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.food-item-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.btn-edit-sm,
+.btn-del-sm {
+    background: none;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 6px;
+    transition: background 0.2s;
+    line-height: 1;
+}
+
+.btn-edit-sm:hover { background: rgba(0,0,0,0.08); }
+.btn-del-sm:hover  { background: rgba(220,50,50,0.12); }
+
+/* History tag dengan tombol edit/hapus */
+.history-tag-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-tag-edit,
+.btn-tag-del {
+    background: none;
+    border: none;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 6px;
+    transition: background 0.2s;
+    line-height: 1;
+    color: #555;
+}
+
+.btn-tag-edit:hover { background: rgba(0,0,0,0.08); }
+.btn-tag-del:hover  { background: rgba(220,50,50,0.15); color: #c00; }

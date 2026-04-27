@@ -1,0 +1,432 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f5f5f5;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* ==================== SIDEBAR ==================== */
+.sidebar {
+  width: 220px;
+  min-width: 220px;
+  background: #F9E19F;
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.logo-icon { width: 36px; height: 36px; object-fit: contain; }
+.logo-text { font-size: 18px; font-weight: bold; color: #8B4513; }
+
+.menu-section { flex: 1; margin-bottom: 16px; }
+
+.menu-title {
+  font-size: 10px;
+  font-weight: bold;
+  color: #8B4513;
+  margin-bottom: 10px;
+  padding-left: 8px;
+  letter-spacing: 1px;
+}
+
+.menu { display: flex; flex-direction: column; gap: 4px; }
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #8B4513;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  line-height: 1.3;
+}
+
+.menu-item:hover { background: rgba(139,69,19,0.1); }
+.menu-item.active { background: rgba(139,69,19,0.2); font-weight: 600; }
+
+.menu-icon, .menu-icon-img { width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; }
+
+.bottom-menu {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid rgba(139,69,19,0.15);
+}
+
+/* ==================== MAIN ==================== */
+.main-content {
+  flex: 1;
+  background: #FFCB4C;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+  background: #FFCB4C;
+  padding: 12px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.header-left { display: flex; align-items: center; gap: 8px; }
+.header-icon { width: 22px; height: 22px; object-fit: contain; }
+.header-left h1 { font-size: 18px; font-weight: bold; color: #1a1a1a; }
+
+.header-right { display: flex; align-items: center; gap: 10px; }
+
+.week-selector {
+  background: #fff;
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.btn-settings {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: none;
+  border-radius: 20px;
+  height: 36px;
+  padding: 0 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8B4513;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-settings img { width: 14px; height: 14px; object-fit: contain; }
+
+.header-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.header-btn img { width: 16px; height: 16px; object-fit: contain; }
+
+/* ==================== CONTENT ==================== */
+.analisis-content {
+  flex: 1;
+  padding: 10px 22px 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.greeting { font-size: 14px; font-weight: bold; color: #1a1a1a; }
+
+/* ==================== SKOR CARD ==================== */
+.skor-card {
+  background: #2BBECB;
+  border-radius: 14px;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skor-left { display: flex; align-items: center; gap: 14px; }
+.skor-icon { font-size: 36px; }
+
+.skor-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.skor-value {
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.skor-badge {
+  background: #fff;
+  color: #2BBECB;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 10px 28px;
+  border-radius: 30px;
+}
+
+/* ==================== ANALISIS GRID ==================== */
+.analisis-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr 180px;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+.col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ==================== MINI CARDS ==================== */
+.mini-card {
+  border-radius: 12px;
+  padding: 12px 14px;
+  flex: 1;
+}
+
+.card-blue   { background: #4FC3F7; }
+.card-orange { background: #F5A623; }
+.card-brown  { background: #C17B3F; }
+
+.mini-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.mini-icon { font-size: 22px; flex-shrink: 0; }
+
+.mini-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.mini-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.85);
+}
+
+.mini-score {
+  margin-left: auto;
+  font-size: 26px;
+  font-weight: 900;
+  color: #fff;
+}
+
+/* Day bars — kotak angka per hari */
+.day-bars {
+  display: flex;
+  gap: 4px;
+  justify-content: space-between;
+}
+
+.day-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+}
+
+.day-label {
+  font-size: 9px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 600;
+}
+
+.day-val {
+  background: rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-val.highlight {
+  background: rgba(255,255,255,0.7);
+  color: #333;
+}
+
+/* ==================== KATEGORI MAKANAN ==================== */
+.col-mid { overflow: hidden; }
+
+.kat-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px 18px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.kat-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 14px;
+}
+
+.kat-list { display: flex; flex-direction: column; gap: 12px; }
+
+.kat-item { display: flex; align-items: center; gap: 10px; }
+
+.kat-icon { font-size: 20px; flex-shrink: 0; }
+
+.kat-info { flex: 1; }
+
+.kat-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.kat-bar-track {
+  height: 10px;
+  background: #eee;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.kat-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+.fill-pokok { background: #F5A623; }
+.fill-lauk  { background: #E53935; }
+.fill-sayur { background: #43A047; }
+.fill-buah  { background: #E91E8C; }
+.fill-susu  { background: #29B6F6; }
+
+.kat-count {
+  font-size: 12px;
+  font-weight: 800;
+  color: #555;
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ==================== TEKSTUR BAB ==================== */
+.col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tekstur-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  flex: 1;
+}
+
+.tekstur-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 14px;
+}
+
+.tekstur-list { display: flex; flex-direction: column; gap: 10px; }
+
+.tekstur-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tekstur-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  width: 55px;
+  flex-shrink: 0;
+}
+
+.tekstur-bar-track {
+  flex: 1;
+  height: 10px;
+  background: #eee;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.tekstur-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+.fill-keras  { background: #E53935; }
+.fill-normal { background: #43A047; }
+.fill-lembek { background: #F5A623; }
+.fill-cair   { background: #29B6F6; }
+
+.tekstur-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: #777;
+  min-width: 20px;
+  text-align: right;
+}
+
+/* ==================== TIPS CARD ==================== */
+.tips-card {
+  background: #FFFDE7;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.tips-icon { font-size: 20px; flex-shrink: 0; }
+
+.tips-text {
+  font-size: 11px;
+  color: #7a5500;
+  line-height: 1.5;
+  font-weight: 500;
+}

@@ -1,0 +1,425 @@
+/* ==================== REGISTER CSS ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Left Side - Illustration */
+.left-side {
+    flex: 1;
+    background: linear-gradient(180deg, #FFCB4C 0%, #f4d56f 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 35px;
+}
+
+.logo-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: #8B4513;
+}
+
+.illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.apple {
+    font-size: 100px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.intestine {
+    font-size: 140px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.water {
+    font-size: 100px;
+    animation: float 3s ease-in-out infinite 0.5s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Right Side - Register Form */
+.right-side {
+    flex: 1;
+    background-color: #F9E19F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+h1 {
+    font-size: 32px;
+    color: #8B4513;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* Form Styles */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: #8B4513;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 16px;
+    border: 2px solid #d4a76a;
+    border-radius: 8px;
+    background-color: #fff9e6;
+    color: #333;
+    transition: all 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #e87d5c;
+    background-color: #fff;
+}
+
+.form-group input::placeholder {
+    color: #999;
+}
+
+/* Password Field */
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 50px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.eye-icon {
+    display: block;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+    margin-bottom: 25px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    position: relative;
+    padding-left: 30px;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    height: 20px;
+    width: 20px;
+    background-color: #fff9e6;
+    border: 2px solid #d4a76a;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #fff;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: F58E3D;
+    border-color: F58E3D;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-text {
+    line-height: 1.5;
+}
+
+.checkbox-text a {
+    color: #e87d5c;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.checkbox-text a:hover {
+    text-decoration: underline;
+}
+
+/* Register Button */
+.btn-register {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #F58E3D;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn-register:hover {
+    background-color: #F58E3D;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(232, 125, 92, 0.4);
+}
+
+.btn-register:active {
+    transform: translateY(0);
+}
+
+.btn-register:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Login Link */
+.login-link {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: 25px;
+}
+
+.login-link a {
+    color: #8B4513;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side {
+        min-height: 35vh;
+        padding: 30px;
+    }
+
+    .logo {
+        position: static;
+        margin-bottom: 20px;
+    }
+
+    .illustration {
+        gap: 15px;
+    }
+
+    .apple, .water {
+        font-size: 70px;
+    }
+
+    .intestine {
+        font-size: 100px;
+    }
+
+    .right-side {
+        padding: 40px 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .left-side {
+        min-height: 30vh;
+        padding: 20px;
+    }
+
+    .logo-text {
+        font-size: 24px;
+    }
+
+    .logo-icon {
+        font-size: 30px;
+    }
+
+    .apple, .water {
+        font-size: 60px;
+    }
+
+    .intestine {
+        font-size: 80px;
+    }
+
+    .right-side {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .register-container {
+        max-width: 100%;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .left-side {
+        min-height: 25vh;
+        padding: 15px;
+    }
+
+    .logo {
+        gap: 8px;
+    }
+
+    .logo-text {
+        font-size: 20px;
+    }
+
+    .logo-icon {
+        font-size: 26px;
+    }
+
+    .illustration {
+        gap: 10px;
+    }
+
+    .apple, .water {
+        font-size: 50px;
+    }
+
+    .intestine {
+        font-size: 70px;
+    }
+
+    .right-side {
+        padding: 25px 15px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .form-group input {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .btn-register {
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .checkbox-text {
+        font-size: 13px;
+    }
+}

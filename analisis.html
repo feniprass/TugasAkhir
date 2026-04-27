@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BABuddy - Analisis Mingguan</title>
+  <link rel="stylesheet" href="analisis.css" />
+</head>
+<body>
+  <div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="icon/icon_usus.png" class="logo-icon" alt="logo" />
+        <div class="logo-text">BABuddy</div>
+      </div>
+      <div class="menu-section">
+        <div class="menu-title">MENU</div>
+        <nav class="menu">
+          <a href="dashboard.html" class="menu-item">
+            <span class="menu-icon">📊</span>
+            <span class="menu-text">Dashboard</span>
+          </a>
+          <a href="watertracker.html" class="menu-item">
+            <img src="icon/icon_air.png" class="menu-icon-img" alt="air"/>
+            <span class="menu-text">Pemantau Air</span>
+          </a>
+          <a href="babtracker.html" class="menu-item">
+            <img src="icon/icon_bab.png" class="menu-icon-img" alt="bab"/>
+            <span class="menu-text">Pemantau BAB</span>
+          </a>
+          <a href="foodtracker.html" class="menu-item">
+            <img src="icon/icon_makanan.png" class="menu-icon-img" alt="makanan"/>
+            <span class="menu-text">Pemantau Asupan Makanan</span>
+          </a>
+          <a href="notifikasi.html" class="menu-item">
+            <img src="icon/icon_notifikasi.png" class="menu-icon-img" alt="notif"/>
+            <span class="menu-text">Notifikasi</span>
+          </a>
+          <a href="analisis.html" class="menu-item active">
+            <img src="icon/icon_analisis.png" class="menu-icon-img" alt="analisis"/>
+            <span class="menu-text">Analisis Mingguan</span>
+          </a>
+          <a href="diagnosis.html" class="menu-item">
+            <img src="icon/icon_analisis.png" class="menu-icon-img" alt="diagnosis"/>
+            <span class="menu-text">Diagnosis</span>
+          </a>
+        </nav>
+      </div>
+      <div class="bottom-menu">
+        <a href="pengaturan.html" class="menu-item">
+          <img src="icon/icon_setting.png" class="menu-icon-img" alt="pengaturan"/>
+          <span class="menu-text">Pengaturan Akun</span>
+        </a>
+        <a href="login.html" class="menu-item" id="logoutBtn">
+          <img src="icon/icon_logout.png" class="menu-icon-img" alt="logout"/>
+          <span class="menu-text">Keluar</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- HEADER -->
+      <header class="header">
+        <div class="header-left">
+          <img src="icon/icon_notifikasi.png" class="header-icon" alt="analisis"/>
+          <h1>Hasil Diagnosis Mingguan</h1>
+        </div>
+        <div class="header-right">
+          <div class="week-selector">
+            📅 <span id="weekLabel">7 Des – 13 Des 2024</span> ▾
+          </div>
+          <button class="btn-settings">
+            Pengaturan
+            <img src="icon/icon_setting.png" alt="settings"/>
+          </button>
+          <button class="header-btn">
+            <img src="icon/icon_notifikasi.png" alt="notif"/>
+          </button>
+          <button class="header-btn">
+            <img src="icon/icon_profile.png" alt="profile"/>
+          </button>
+        </div>
+      </header>
+
+      <!-- ANALISIS CONTENT -->
+      <div class="analisis-content">
+        <p class="greeting">Halo, Penpen!</p>
+
+        <!-- SKOR KESEHATAN -->
+        <div class="skor-card">
+          <div class="skor-left">
+            <div class="skor-icon">🎯</div>
+            <div class="skor-info">
+              <div class="skor-label">Skor Kesehatan Pencernaan</div>
+              <div class="skor-value" id="skorValue">78 / 100</div>
+            </div>
+          </div>
+          <div class="skor-badge" id="skorBadge">Baik</div>
+        </div>
+
+        <!-- 3 KOLOM BAWAH -->
+        <div class="analisis-grid">
+
+          <!-- KOLOM KIRI: Air + Nutrisi + BAB -->
+          <div class="col-left">
+
+            <!-- ASUPAN AIR -->
+            <div class="mini-card card-blue">
+              <div class="mini-card-header">
+                <div class="mini-icon">💧</div>
+                <div>
+                  <div class="mini-title">Asupan Air</div>
+                  <div class="mini-sub" id="airSub">0/8 gelas</div>
+                </div>
+                <div class="mini-score" id="airScore">0</div>
+              </div>
+              <div class="day-bars" id="airBars">
+                <!-- diisi JS -->
+              </div>
+            </div>
+
+            <!-- NUTRISI -->
+            <div class="mini-card card-orange">
+              <div class="mini-card-header">
+                <div class="mini-icon">🍽️</div>
+                <div>
+                  <div class="mini-title">Nutrisi</div>
+                  <div class="mini-sub" id="nutrisiSub">0/5 kategori</div>
+                </div>
+                <div class="mini-score" id="nutrisiScore">0</div>
+              </div>
+              <div class="day-bars" id="nutrisiBars">
+                <!-- diisi JS -->
+              </div>
+            </div>
+
+            <!-- KESEHATAN BAB -->
+            <div class="mini-card card-brown">
+              <div class="mini-card-header">
+                <div class="mini-icon">💩</div>
+                <div>
+                  <div class="mini-title">Kesehatan BAB</div>
+                  <div class="mini-sub" id="babSub">0x/hari</div>
+                </div>
+                <div class="mini-score" id="babScore">0</div>
+              </div>
+              <div class="day-bars" id="babBars">
+                <!-- diisi JS -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- KOLOM TENGAH: Kategori Makanan -->
+          <div class="col-mid">
+            <div class="kat-card">
+              <div class="kat-title">Kategori Makanan</div>
+              <div class="kat-list" id="katList">
+                <!-- diisi JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- KOLOM KANAN: Tekstur BAB -->
+          <div class="col-right">
+            <div class="tekstur-card">
+              <div class="tekstur-title">📊 Tekstur BAB</div>
+              <div class="tekstur-list" id="teksturList">
+                <!-- diisi JS -->
+              </div>
+            </div>
+            <div class="tips-card" id="tipsCard">
+              <div class="tips-icon">💡</div>
+              <div class="tips-text" id="tipsText">Muat data mingguan untuk mendapatkan tips kesehatan.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="analisis.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BABuddy - Notifikasi</title>
+    <link rel="stylesheet" href="notifikasi.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="logo">
+          <img src="icon/icon_usus.png" class="logo-icon" alt="logo" />
+          <div class="logo-text">BABuddy</div>
+        </div>
+
+        <div class="menu-section">
+          <div class="menu-title">MENU</div>
+          <nav class="menu">
+            <a href="dashboard.html" class="menu-item">
+              <span class="menu-icon">📊</span>
+              <span class="menu-text">Dashboard</span>
+            </a>
+            <a href="watertracker.html" class="menu-item">
+              <img src="icon/icon_air.png" class="menu-icon-img" alt="air" />
+              <span class="menu-text">Pemantau Air</span>
+            </a>
+            <a href="babtracker.html" class="menu-item">
+              <img src="icon/icon_bab.png" class="menu-icon-img" alt="bab" />
+              <span class="menu-text">Pemantau BAB</span>
+            </a>
+            <a href="foodtracker.html" class="menu-item">
+              <img
+                src="icon/icon_makanan.png"
+                class="menu-icon-img"
+                alt="makanan"
+              />
+              <span class="menu-text">Pemantau Asupan Makanan</span>
+            </a>
+            <a href="notifikasi.html" class="menu-item active">
+              <img
+                src="icon/icon_notifikasi.png"
+                class="menu-icon-img"
+                alt="notifikasi"
+              />
+              <span class="menu-text">Notifikasi</span>
+            </a>
+            <a href="analisis.html" class="menu-item">
+              <img
+                src="icon/icon_analisis.png"
+                class="menu-icon-img"
+                alt="analisis"
+              />
+              <span class="menu-text">Analisis Mingguan</span>
+            </a>
+            <a href="diagnosis.html" class="menu-item">
+              <img
+                src="icon/icon_analisis.png"
+                class="menu-icon-img"
+                alt="diagnosis"
+              />
+              <span class="menu-text">Diagnosis</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="bottom-menu">
+          <a href="pengaturan.html" class="menu-item">
+            <img
+              src="icon/icon_setting.png"
+              class="menu-icon-img"
+              alt="pengaturan"
+            />
+            <span class="menu-text">Pengaturan Akun</span>
+          </a>
+          <a href="login.html" class="menu-item" id="logoutBtn">
+            <img
+              src="icon/icon_logout.png"
+              class="menu-icon-img"
+              alt="logout"
+            />
+            <span class="menu-text">Keluar</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        <!-- HEADER -->
+        <header class="header">
+          <div class="header-left">
+            <img
+              src="icon/icon_notifikasi.png"
+              class="header-icon"
+              alt="notifikasi"
+            />
+            <h1>Notifikasi</h1>
+          </div>
+          <div class="header-right">
+            <div class="search-bar">
+              <input type="text" placeholder="" id="searchInput" />
+              <img
+                src="icon/icon_search.png"
+                class="search-icon"
+                alt="search"
+              />
+            </div>
+            <button class="btn-settings">
+              Pengaturan
+              <img src="icon/icon_setting.png" alt="settings" />
+            </button>
+            <button class="header-btn">
+              <img src="icon/icon_notifikasi.png" alt="notif" />
+            </button>
+            <button class="header-btn">
+              <img src="icon/icon_profile.png" alt="profile" />
+            </button>
+          </div>
+        </header>
+
+        <!-- CONTENT -->
+        <div class="notif-content">
+          <p class="greeting">Halo, Penpen!</p>
+
+          <!-- CARD 4 SEHAT 5 SEMPURNA -->
+          <div class="card-sehat">
+            <div class="card-sehat-body">
+              <div class="card-sehat-title">4 Sehat 5 Sempurna</div>
+              <div class="card-sehat-sub" id="sehatSub">
+                Progress hari ini: 0/5 kategori terpenuhi
+              </div>
+              <div class="progress-track">
+                <div
+                  class="progress-fill"
+                  id="sehatFill"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <div class="sehat-warning" id="sehatWarning">
+                ⚠️ <span id="sehatWarningText">5 kategori belum terpenuhi</span>
+              </div>
+            </div>
+            <!-- Ikon kertas bisa diklik -->
+            <button
+              class="btn-detail-sehat"
+              id="btnDetailSehat"
+              title="Lihat detail kategori"
+            >
+              📋
+            </button>
+          </div>
+
+          <!-- NOTIFIKASI LIST (air + bab) -->
+          <div class="notif-list" id="notifList">
+            <!-- diisi JS -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- MODAL DETAIL 4 SEHAT 5 SEMPURNA -->
+    <div class="modal-overlay" id="modalSehat">
+      <div class="modal">
+        <h3>Detail 4 Sehat 5 Sempurna</h3>
+        <p class="modal-desc">Status kategori makanan hari ini:</p>
+        <div id="sehatDetailList"></div>
+        <div class="modal-notif-hint" id="modalNotifHint"></div>
+        <div class="modal-actions">
+          <button onclick="tutupModalSehat()">Tutup</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="notifikasi.js"></script>
+  </body>
+</html>
