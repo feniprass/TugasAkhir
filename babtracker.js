@@ -1,6 +1,41 @@
-
 const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 const TARGET_FREK = 2;
+
+// =========================================
+//  RESET OTOMATIS SETIAP MINGGU BARU
+// =========================================
+function checkWeeklyReset() {
+  try {
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setHours(0, 0, 0, 0);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+
+    const lastReset = localStorage.getItem("babWeekStart");
+    const lastResetTime = lastReset ? parseInt(lastReset) : 0;
+
+    if (startOfWeek.getTime() > lastResetTime) {
+      const oldData = JSON.parse(localStorage.getItem("bowelData") || "[]");
+      if (oldData.length > 0 && lastResetTime > 0) {
+        saveBabToHistory(oldData, lastResetTime);
+      }
+      localStorage.setItem("bowelData", JSON.stringify([]));
+      localStorage.setItem("babWeekStart", startOfWeek.getTime().toString());
+    }
+  } catch {}
+}
+
+function saveBabToHistory(data, weekStartTime) {
+  try {
+    const hist = JSON.parse(localStorage.getItem("babHistory") || "[]");
+    const weekStart = new Date(weekStartTime);
+    const MONTHS = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+    const label = weekStart.getDate() + " " + MONTHS[weekStart.getMonth()] + " " + weekStart.getFullYear();
+    hist.push({ weekLabel: label, weekStart: weekStartTime, data });
+    if (hist.length > 4) hist.shift();
+    localStorage.setItem("babHistory", JSON.stringify(hist));
+  } catch {}
+}
 
 function loadData() {
   try {
@@ -11,74 +46,48 @@ function loadData() {
 }
 
 function saveData(data) {
-  try {
-    localStorage.setItem("bowelData", JSON.stringify(data));
-  } catch {}
+  try { localStorage.setItem("bowelData", JSON.stringify(data)); } catch {}
 }
 
-function getDefaultData() {
-  return [];
-}
+let bowelData = [];
 
-let bowelData = loadData();
-
-function getTodayName() {
-  return DAY_NAMES[new Date().getDay()];
-}
+function getTodayName() { return DAY_NAMES[new Date().getDay()]; }
 
 // ----- RENDER LOG LIST -----
-function renderLogList(data) {
+function renderLogList() {
   const list = document.getElementById("bowelLogList");
-  if (!list) {
-    renderTable(data);
-    return;
-  }
+  if (!list) return;
   list.innerHTML = "";
   const today = getTodayName();
 
-  if (data.length === 0) {
-    list.innerHTML = `<p style="color:#aaa;font-size:14px;padding:10px 0;">Belum ada data. Tekan + Tambah untuk mulai.</p>`;
-    updateCard();
-    return;
-  }
-
-  data.forEach((row) => {
-    const tipeClass = row.tipe === "Normal" ? "type-normal" : row.tipe === "Soft" ? "type-soft" : "type-hard";
-    const darahClass = row.darah === "Blood" ? "blood-yes" : "";
-    const isToday = row.hari === today;
-
+  DAY_NAMES.forEach(hari => {
+    const row = bowelData.find(d => d.hari === hari);
+    const isToday = hari === today;
     const item = document.createElement("div");
     item.className = "log-item" + (isToday ? " log-today" : "");
-    item.innerHTML = `
-      <span class="log-day">${row.hari}${isToday ? " <span class='today-badge'>hari ini</span>" : ""}</span>
-      <span class="log-frek">${row.frek}</span>
-      <span class="log-tipe ${tipeClass}">${row.tipe}</span>
-      <span class="log-darah ${darahClass}">${row.darah}</span>
-    `;
+
+    if (row) {
+      const tipeClass  = row.tipe === "Normal" ? "type-normal" : row.tipe === "Lembek" ? "type-soft" : "type-hard";
+      const darahClass = row.darah === "Berdarah" ? "blood-yes" : "";
+      item.innerHTML = `
+        <span class="log-day" style="color:${isToday ? '#C08F3A' : '#D4A04C'}">
+          ${hari}${isToday ? " <span class='today-badge'>hari ini</span>" : ""}
+        </span>
+        <span class="log-frek">${row.frek}x</span>
+        <span class="log-tipe ${tipeClass}">${row.tipe}</span>
+        <span class="log-darah ${darahClass}">${row.darah}</span>
+      `;
+    } else {
+      item.innerHTML = `
+        <span class="log-day" style="color:${isToday ? '#C08F3A' : '#D4A04C'}">
+          ${hari}${isToday ? " <span class='today-badge'>hari ini</span>" : ""}
+        </span>
+        <span class="log-frek" style="color:#ccc">-</span>
+        <span class="log-tipe" style="color:#ccc">-</span>
+        <span class="log-darah" style="color:#ccc">-</span>
+      `;
+    }
     list.appendChild(item);
-  });
-
-  updateCard();
-}
-
-function renderTable(data) {
-  const tbody = document.querySelector("#bowelTable tbody");
-  if (!tbody) return;
-  tbody.innerHTML = "";
-  const today = getTodayName();
-
-  data.forEach((row) => {
-    const tr = document.createElement("tr");
-    if (row.hari === today) tr.classList.add("log-today");
-    const tipeClass = row.tipe === "Normal" ? "type-normal" : row.tipe === "Soft" ? "type-soft" : "type-hard";
-    const darahClass = row.darah === "Blood" ? "blood-yes" : "blood-no";
-    tr.innerHTML = `
-      <td>${row.hari}${row.hari === today ? " <span class='today-badge'>hari ini</span>" : ""}</td>
-      <td>${row.frek}</td>
-      <td class="${tipeClass}">${row.tipe}</td>
-      <td class="${darahClass}">${row.darah}</td>
-    `;
-    tbody.appendChild(tr);
   });
 
   updateCard();
@@ -90,14 +99,10 @@ function updateCard() {
   const todayData = bowelData.find(d => d.hari === today);
   const frek = todayData ? todayData.frek : 0;
   const tipe = todayData ? todayData.tipe : "-";
+  const pct  = Math.min((frek / TARGET_FREK) * 100, 100);
 
-  const pct = Math.min((frek / TARGET_FREK) * 100, 100);
-
-  const fillEl = document.getElementById("statusFill") || document.getElementById("progressFill");
+  const fillEl = document.getElementById("statusFill");
   if (fillEl) fillEl.style.width = pct + "%";
-
-  const labelEl = document.getElementById("statusLabel") || document.getElementById("progressLabel");
-  if (labelEl) labelEl.textContent = `${frek} / ${TARGET_FREK} kali`;
 
   const amountEl = document.getElementById("babAmountText");
   if (amountEl) amountEl.textContent = frek > 0 ? `${tipe} - ${frek}x sehari` : "Belum ada data hari ini";
@@ -109,20 +114,13 @@ function updateCard() {
   else                          statusEl.textContent = `Sering - ${frek}x sehari`;
 }
 
-function render(data) {
-  if (document.getElementById("bowelLogList")) renderLogList(data);
-  else renderTable(data);
-}
-
 // =========================================
 //  MODAL TAMBAH
 // =========================================
 function handleTambah() {
   const today = getTodayName();
-
   const displayEl = document.getElementById("inputHariDisplay");
   if (displayEl) displayEl.value = today;
-
   const hariEl = document.getElementById("inputHari");
   if (hariEl) hariEl.value = today;
 
@@ -138,7 +136,6 @@ function handleTambah() {
     const frekEl = document.getElementById("inputFrek");
     if (frekEl) frekEl.value = 1;
   }
-
   openModal("modalTambah");
 }
 
@@ -153,19 +150,17 @@ function simpanCatatan() {
   else bowelData.push({ hari, frek, tipe, darah });
 
   saveData(bowelData);
-  render(bowelData);
+  renderLogList();
   closeModal("modalTambah");
   showToast(`✅ Data ${hari} berhasil disimpan!`);
 }
 
 // =========================================
-//  MODAL HAPUS — pilih hari yang mau dihapus
+//  MODAL HAPUS
 // =========================================
 function handleHapus() {
-
   const select = document.getElementById("hapusHari");
   if (!select) return;
-
   select.innerHTML = "";
 
   if (bowelData.length === 0) {
@@ -180,11 +175,9 @@ function handleHapus() {
     select.appendChild(opt);
   });
 
-  // Default pilih hari ini kalau ada
   const today = getTodayName();
   const todayExists = bowelData.find(d => d.hari === today);
   if (todayExists) select.value = today;
-
   openModal("modalHapus");
 }
 
@@ -192,12 +185,11 @@ function konfirmasiHapus() {
   const select = document.getElementById("hapusHari");
   if (!select) return;
   const hari = select.value;
-
-  const idx = bowelData.findIndex(d => d.hari === hari);
+  const idx  = bowelData.findIndex(d => d.hari === hari);
   if (idx !== -1) {
     bowelData.splice(idx, 1);
     saveData(bowelData);
-    render(bowelData);
+    renderLogList();
     closeModal("modalHapus");
     showToast(`🗑️ Data ${hari} berhasil dihapus.`);
   }
@@ -211,7 +203,7 @@ function handleDetail() {
   if (bowelData.length === 0) {
     content.innerHTML = "<p>Belum ada data.</p>";
   } else {
-    bowelData.forEach((row) => {
+    bowelData.forEach(row => {
       const p = document.createElement("p");
       p.innerHTML = `<span>${row.hari}</span> — ${row.frek}x, ${row.tipe}, ${row.darah}`;
       content.appendChild(p);
@@ -220,21 +212,9 @@ function handleDetail() {
   openModal("modalDetail");
 }
 
-// ----- MODAL -----
 function openModal(id)  { document.getElementById(id)?.classList.add("active"); }
 function closeModal(id) { document.getElementById(id)?.classList.remove("active"); }
 
-// ----- SEARCH -----
-function handleSearch() {
-  const q = (document.getElementById("searchInput")?.value || "").trim().toLowerCase();
-  render(q ? bowelData.filter(d =>
-    d.hari.toLowerCase().includes(q) ||
-    d.tipe.toLowerCase().includes(q) ||
-    d.darah.toLowerCase().includes(q)
-  ) : bowelData);
-}
-
-// ----- TOAST -----
 function showToast(msg) {
   let t = document.getElementById("toast");
   if (!t) {
@@ -256,29 +236,20 @@ function showToast(msg) {
 // =========================================
 document.addEventListener("DOMContentLoaded", () => {
 
+  checkWeeklyReset();
+  bowelData = loadData();
+
   const style = document.createElement("style");
   style.textContent = `
     .today-badge {
-      background: #D4A04C;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 20px;
-      margin-left: 6px;
-      vertical-align: middle;
+      background: #D4A04C; color: #fff; font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 20px; margin-left: 6px; vertical-align: middle;
     }
-    .log-today {
-      background-color: rgba(212, 160, 76, 0.08);
-      border-radius: 8px;
-    }
-    .log-today td, .log-today .log-day {
-      font-weight: 700 !important;
-    }
+    .log-today { background-color: rgba(212, 160, 76, 0.08); border-radius: 8px; }
   `;
   document.head.appendChild(style);
 
-  render(bowelData);
+  renderLogList();
 
   document.querySelectorAll(".modal-overlay").forEach(o => {
     o.addEventListener("click", function(e) {
@@ -286,14 +257,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const si = document.getElementById("searchInput");
-  if (si) si.addEventListener("input", handleSearch);
-
-  document.querySelectorAll(".menu-item, .nav-item").forEach(item => {
+  document.querySelectorAll(".menu-item").forEach(item => {
     item.addEventListener("click", function(e) {
       const href = this.getAttribute("href");
       if (!href || href === "#") e.preventDefault();
-      document.querySelectorAll(".menu-item, .nav-item").forEach(i => i.classList.remove("active"));
+      document.querySelectorAll(".menu-item").forEach(i => i.classList.remove("active"));
       this.classList.add("active");
     });
   });

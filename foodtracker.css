@@ -100,8 +100,7 @@ body {
 
 .bottom-menu {
     margin-top: auto;
-    padding-top: 10px;
-    border-top: 1px solid rgba(139, 69, 19, 0.15);
+    margin-bottom: 20px;
 }
 
 /* ==================== MAIN CONTENT ==================== */
@@ -235,21 +234,6 @@ body {
 .food-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
-
-/* Susu di tengah — span penuh atau posisi khusus */
-.food-card:nth-child(3) {
-    grid-column: 1 / 2;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-}
-
-/* Layout: pokok, lauk | susu (tengah) | buah, sayur */
-.food-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto auto;
     gap: 18px;
 }
@@ -311,7 +295,6 @@ body {
     font-weight: 500;
 }
 
-/* Body card — kotak putih isi makanan */
 .card-body {
     background: rgba(255,255,255,0.9);
     border-radius: 10px;
@@ -331,11 +314,17 @@ body {
     text-align: center;
 }
 
-/* Item makanan dalam card body */
 .food-item {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.food-item-info {
+    display: flex;
     flex-direction: column;
-    gap: 2px;
+    flex: 1;
 }
 
 .food-item-name {
@@ -361,13 +350,61 @@ body {
     font-size: 11px;
 }
 
+.food-item-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.btn-edit-sm,
+.btn-del-sm {
+    background: none;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 6px;
+    transition: background 0.2s;
+    line-height: 1;
+}
+
+/* ==================== MEAL SLOT (Sarapan/Siang/Malam) ==================== */
+.history-right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.meal-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.meal-slot-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8B4513;
+    margin-bottom: 2px;
+}
+
+.meal-slot-foods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 20px;
+}
+
+.btn-edit-sm:hover { background: rgba(0,0,0,0.08); }
+.btn-del-sm:hover  { background: rgba(220,50,50,0.12); }
+
 .card-hint {
     font-size: 11px;
     color: rgba(255,255,255,0.8);
     font-style: italic;
 }
 
-/* Tombol tambah makanan */
 .card-btn {
     background-color: rgba(255,255,255,0.25);
     border: 2px solid rgba(255,255,255,0.6);
@@ -509,9 +546,7 @@ body {
     padding-top: 2px;
 }
 
-.history-day.today {
-    color: #C08F3A;
-}
+.history-day.today { color: #C08F3A; }
 
 .today-badge {
     background: #D4A04C;
@@ -551,44 +586,7 @@ body {
     font-style: italic;
 }
 
-/* ==================== EDIT & HAPUS ==================== */
-
-/* Food item di card — flex dengan tombol aksi */
-.food-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-}
-
-.food-item-info {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.food-item-actions {
-    display: flex;
-    gap: 4px;
-    flex-shrink: 0;
-}
-
-.btn-edit-sm,
-.btn-del-sm {
-    background: none;
-    border: none;
-    font-size: 13px;
-    cursor: pointer;
-    padding: 2px 4px;
-    border-radius: 6px;
-    transition: background 0.2s;
-    line-height: 1;
-}
-
-.btn-edit-sm:hover { background: rgba(0,0,0,0.08); }
-.btn-del-sm:hover  { background: rgba(220,50,50,0.12); }
-
-/* History tag dengan tombol edit/hapus */
+/* ==================== HISTORY TAG ACTIONS ==================== */
 .history-tag-wrap {
     display: flex;
     align-items: center;
@@ -610,3 +608,15 @@ body {
 
 .btn-tag-edit:hover { background: rgba(0,0,0,0.08); }
 .btn-tag-del:hover  { background: rgba(220,50,50,0.15); color: #c00; }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+    .food-grid { grid-template-columns: 1fr; }
+    .food-card:nth-child(n) { grid-column: 1; grid-row: auto; width: 100%; }
+}
+
+@media (max-width: 768px) {
+    .sidebar { width: 70px; padding: 15px 8px; }
+    .logo-text, .menu-text, .menu-title { display: none; }
+    .menu-item { justify-content: center; }
+}

@@ -1,6 +1,7 @@
 // =========================================
 //  BABuddy - Food Tracker Script
-//  Dengan fitur Edit & Hapus
+//  Input langsung masuk riwayat mingguan
+//  Card tambah makanan selalu kosong
 // =========================================
 
 const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -13,136 +14,136 @@ const CATEGORIES = {
   sayur: { label: "Sayuran",       hint: "Contoh: Bayam, Kangkung, Wortel" },
 };
 
-// ── localStorage food hari ini ──
-function loadData() {
-  try {
-    const s = localStorage.getItem("foodData");
-    return s ? JSON.parse(s) : { pokok: [], lauk: [], susu: [], buah: [], sayur: [] };
-  } catch { return { pokok: [], lauk: [], susu: [], buah: [], sayur: [] }; }
-}
-function saveData() {
-  try { localStorage.setItem("foodData", JSON.stringify(foodData)); } catch {}
+// ── Klasifikasi waktu makan ──
+function getSlotMakan(waktu) {
+  if (!waktu) return 'malam';
+  const jam = parseInt(waktu.split(':')[0], 10);
+  if (jam >= 4  && jam <= 10) return 'sarapan';
+  if (jam >= 11 && jam <= 14) return 'siang';
+  return 'malam';
 }
 
-// ── localStorage history ──
-function loadHistory() {
+const SLOT_LABEL = {
+  sarapan : '🌅 Sarapan',
+  siang   : '☀️ Makan Siang',
+  malam   : '🌙 Makan Malam',
+};
+
+// =========================================
+//  RESET OTOMATIS SETIAP MINGGU BARU
+// =========================================
+function checkWeeklyReset() {
   try {
-    const s = localStorage.getItem("foodHistory");
-    return s ? JSON.parse(s) : {};
-  } catch { return {}; }
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setHours(0,0,0,0);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    const lastReset = localStorage.getItem("foodWeekStart");
+    if (startOfWeek.getTime() > parseInt(lastReset||"0")) {
+      localStorage.setItem("foodHistory",  JSON.stringify({}));
+      localStorage.setItem("foodWeekStart", startOfWeek.getTime().toString());
+    }
+  } catch {}
+}
+
+// ── localStorage ──
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem("foodHistory")||"{}"); } catch { return {}; }
 }
 function saveHistory(data) {
   try { localStorage.setItem("foodHistory", JSON.stringify(data)); } catch {}
 }
 
-let foodData = loadData();
-let currentCategory = null;
-let editIndex = null;      // index item yang sedang diedit di card
-let editDay = null;        // hari yang sedang diedit di history
+let currentCategory  = null;
+let editDay          = null;
 let editHistoryIndex = null;
 
 // =========================================
-//  RENDER CARD
+//  RENDER CARD — selalu tampilkan kosong
+//  (card hanya sebagai tombol tambah)
 // =========================================
 function renderAll() {
-  Object.keys(CATEGORIES).forEach(cat => renderCard(cat));
-}
-
-function renderCard(cat) {
-  const body = document.getElementById("body-" + cat);
-  if (!body) return;
-
-  const items = foodData[cat] || [];
-  body.innerHTML = "";
-
-  if (items.length === 0) {
-    body.innerHTML = `<div class="empty-state">Belum ada makanan</div>`;
-    return;
-  }
-
-  const label = document.createElement("div");
-  label.className = "consumed-label";
-  label.textContent = "Sudah dikonsumsi:";
-  body.appendChild(label);
-
-  items.forEach((item, idx) => {
-    const div = document.createElement("div");
-    div.className = "food-item";
-    div.innerHTML = `
-      <div class="food-item-info">
-        <span class="food-item-name">${item.nama}</span>
-        <span class="food-item-time">${item.waktu}</span>
-      </div>
-      <div class="food-item-actions">
-        <button class="btn-edit-sm" onclick="editItem('${cat}', ${idx})">✏️</button>
-        <button class="btn-del-sm"  onclick="hapusItem('${cat}', ${idx})">🗑️</button>
-      </div>
-    `;
-    body.appendChild(div);
+  Object.keys(CATEGORIES).forEach(cat => {
+    const body = document.getElementById("body-" + cat);
+    if (body) body.innerHTML = `<div class="empty-state">Tekan + Tambah untuk mencatat</div>`;
   });
 }
 
 // =========================================
-//  RENDER HISTORY
+//  RENDER HISTORY — klasifikasi 3 slot makan
 // =========================================
 function renderHistory() {
   const list = document.getElementById("historyList");
   if (!list) return;
   list.innerHTML = "";
 
-  const today = DAY_NAMES[new Date().getDay()];
+  const today       = DAY_NAMES[new Date().getDay()];
   const historyData = loadHistory();
 
   DAY_NAMES.forEach(day => {
-    const items = historyData[day] || [];
+    const items   = historyData[day] || [];
     const isToday = day === today;
 
     const row = document.createElement("div");
     row.className = "history-item";
 
+    // Label hari
     const dayEl = document.createElement("div");
     dayEl.className = "history-day" + (isToday ? " today" : "");
     dayEl.innerHTML = day + (isToday ? " <span class='today-badge'>hari ini</span>" : "");
 
-    const foodsEl = document.createElement("div");
-    foodsEl.className = "history-foods";
+    // Kolom kanan: 3 slot
+    const rightEl = document.createElement("div");
+    rightEl.className = "history-right";
 
-    if (items.length === 0) {
-      foodsEl.innerHTML = `<span class="history-empty">Belum ada data</span>`;
-    } else {
-      items.forEach((item, idx) => {
-        const wrap = document.createElement("div");
-        wrap.className = "history-tag-wrap";
-        wrap.innerHTML = `
-          <span class="history-tag tag-${item.cat}">${item.nama} (${item.waktu})</span>
-          <button class="btn-tag-edit" onclick="editHistoryItem('${day}', ${idx})">✏️</button>
-          <button class="btn-tag-del"  onclick="hapusHistoryItem('${day}', ${idx})">✕</button>
-        `;
-        foodsEl.appendChild(wrap);
-      });
-    }
+    // Kelompokkan item per slot
+    const slots = { sarapan:[], siang:[], malam:[] };
+    items.forEach((item, idx) => {
+      slots[getSlotMakan(item.waktu)].push({ ...item, idx });
+    });
+
+    ['sarapan','siang','malam'].forEach(slot => {
+      const slotEl = document.createElement("div");
+      slotEl.className = "meal-slot";
+      slotEl.innerHTML = `<div class="meal-slot-label">${SLOT_LABEL[slot]}</div>`;
+
+      const foodsEl = document.createElement("div");
+      foodsEl.className = "meal-slot-foods";
+
+      if (slots[slot].length === 0) {
+        foodsEl.innerHTML = `<span class="history-empty">–</span>`;
+      } else {
+        slots[slot].forEach(item => {
+          const wrap = document.createElement("div");
+          wrap.className = "history-tag-wrap";
+          wrap.innerHTML = `
+            <span class="history-tag tag-${item.cat}">${item.nama} (${item.waktu})</span>
+            <button class="btn-tag-edit" onclick="editHistoryItem('${day}',${item.idx})">✏️</button>
+            <button class="btn-tag-del"  onclick="hapusHistoryItem('${day}',${item.idx})">✕</button>`;
+          foodsEl.appendChild(wrap);
+        });
+      }
+
+      slotEl.appendChild(foodsEl);
+      rightEl.appendChild(slotEl);
+    });
 
     row.appendChild(dayEl);
-    row.appendChild(foodsEl);
+    row.appendChild(rightEl);
     list.appendChild(row);
   });
 }
 
 // =========================================
-//  TAMBAH
+//  TAMBAH — langsung ke riwayat
 // =========================================
 function openModal(cat) {
   currentCategory = cat;
-  editIndex = null;
-
-  const catInfo = CATEGORIES[cat];
-  document.getElementById("modalTitle").textContent = "Tambah " + catInfo.label;
+  document.getElementById("modalTitle").textContent = "Tambah " + CATEGORIES[cat].label;
   document.getElementById("inputNama").value = "";
-
   const now = new Date();
   document.getElementById("inputWaktu").value =
     String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
-
   document.getElementById("modalTambah").classList.add("active");
   setTimeout(() => document.getElementById("inputNama").focus(), 100);
 }
@@ -153,71 +154,30 @@ function simpanMakanan() {
   if (!nama) { showToast("⚠️ Nama makanan tidak boleh kosong!"); return; }
   if (!currentCategory) return;
 
-  if (!foodData[currentCategory]) foodData[currentCategory] = [];
+  // Langsung simpan ke foodHistory hari ini
+  const today = DAY_NAMES[new Date().getDay()];
+  const hist  = loadHistory();
+  if (!hist[today]) hist[today] = [];
+  hist[today].push({ cat:currentCategory, nama, waktu });
+  saveHistory(hist);
 
-  if (editIndex !== null) {
-    // MODE EDIT — update item yang ada
-    foodData[currentCategory][editIndex] = { nama, waktu };
-    showToast("✅ " + nama + " berhasil diupdate!");
-  } else {
-    // MODE TAMBAH — tambah item baru
-    foodData[currentCategory].push({ nama, waktu });
-    // Simpan ke history hari ini
-    const today = DAY_NAMES[new Date().getDay()];
-    const hist = loadHistory();
-    if (!hist[today]) hist[today] = [];
-    hist[today].push({ cat: currentCategory, nama, waktu });
-    saveHistory(hist);
-    showToast("✅ " + nama + " berhasil ditambahkan!");
-  }
-
-  saveData();
-  renderCard(currentCategory);
+  // Card tetap kosong — tidak perlu update foodData
+  showToast("✅ " + nama + " masuk ke riwayat " + SLOT_LABEL[getSlotMakan(waktu)] + "!");
   renderHistory();
   closeModal();
-}
-
-// =========================================
-//  EDIT ITEM DI CARD
-// =========================================
-function editItem(cat, idx) {
-  currentCategory = cat;
-  editIndex = idx;
-
-  const item = foodData[cat][idx];
-  document.getElementById("modalTitle").textContent = "Edit " + CATEGORIES[cat].label;
-  document.getElementById("inputNama").value  = item.nama;
-  document.getElementById("inputWaktu").value = item.waktu;
-
-  document.getElementById("modalTambah").classList.add("active");
-  setTimeout(() => document.getElementById("inputNama").focus(), 100);
-}
-
-// =========================================
-//  HAPUS ITEM DI CARD
-// =========================================
-function hapusItem(cat, idx) {
-  const nama = foodData[cat][idx].nama;
-  foodData[cat].splice(idx, 1);
-  saveData();
-  renderCard(cat);
-  showToast("🗑️ " + nama + " dihapus.");
 }
 
 // =========================================
 //  EDIT ITEM DI HISTORY
 // =========================================
 function editHistoryItem(day, idx) {
-  editDay = day;
+  editDay          = day;
   editHistoryIndex = idx;
-
   const hist = loadHistory();
   const item = hist[day][idx];
-
   document.getElementById("histEditNama").value  = item.nama;
   document.getElementById("histEditWaktu").value = item.waktu;
   document.getElementById("histEditKat").value   = item.cat;
-
   document.getElementById("modalEditHistory").classList.add("active");
   setTimeout(() => document.getElementById("histEditNama").focus(), 100);
 }
@@ -227,7 +187,6 @@ function simpanEditHistory() {
   const waktu = document.getElementById("histEditWaktu").value;
   const cat   = document.getElementById("histEditKat").value;
   if (!nama) { showToast("⚠️ Nama tidak boleh kosong!"); return; }
-
   const hist = loadHistory();
   hist[editDay][editHistoryIndex] = { cat, nama, waktu };
   saveHistory(hist);
@@ -245,7 +204,7 @@ function hapusHistoryItem(day, idx) {
   hist[day].splice(idx, 1);
   saveHistory(hist);
   renderHistory();
-  showToast("🗑️ " + nama + " dihapus dari history.");
+  showToast("🗑️ " + nama + " dihapus dari riwayat.");
 }
 
 // =========================================
@@ -253,10 +212,7 @@ function hapusHistoryItem(day, idx) {
 // =========================================
 function closeModal() {
   document.querySelectorAll(".modal-overlay").forEach(m => m.classList.remove("active"));
-  currentCategory = null;
-  editIndex = null;
-  editDay = null;
-  editHistoryIndex = null;
+  currentCategory = null; editDay = null; editHistoryIndex = null;
 }
 
 // ── Toast ──
@@ -270,32 +226,26 @@ function showToast(msg) {
       z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.2);opacity:0;transition:opacity .3s;`;
     document.body.appendChild(t);
   }
-  t.textContent = msg;
-  t.style.opacity = "1";
+  t.textContent = msg; t.style.opacity = "1";
   clearTimeout(t._t);
   t._t = setTimeout(() => { t.style.opacity = "0"; }, 2500);
 }
 
 // ── DOMContentLoaded ──
 document.addEventListener("DOMContentLoaded", () => {
-
+  checkWeeklyReset();
   renderAll();
   renderHistory();
 
   document.querySelectorAll(".modal-overlay").forEach(o => {
-    o.addEventListener("click", function(e) {
-      if (e.target === this) closeModal();
-    });
+    o.addEventListener("click", function(e) { if (e.target === this) closeModal(); });
   });
-
   document.getElementById("inputNama")?.addEventListener("keydown", e => {
     if (e.key === "Enter") simpanMakanan();
   });
-
   document.getElementById("histEditNama")?.addEventListener("keydown", e => {
     if (e.key === "Enter") simpanEditHistory();
   });
-
   document.querySelectorAll(".menu-item").forEach(item => {
     item.addEventListener("click", function(e) {
       const href = this.getAttribute("href");
@@ -304,5 +254,4 @@ document.addEventListener("DOMContentLoaded", () => {
       this.classList.add("active");
     });
   });
-
 });

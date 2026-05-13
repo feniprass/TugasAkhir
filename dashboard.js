@@ -3,6 +3,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const today = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"][new Date().getDay()];
 
     // =========================
+    // GREETING DINAMIS
+    // =========================
+    (function setGreeting() {
+        var el = document.getElementById('greetingText');
+        if (!el) return;
+        if (window.__greetName) {
+            el.textContent = 'Halo, ' + window.__greetName + '!';
+        }
+    })();
+
+    // =========================
+    // HELPER: update checkbox
+    // =========================
+    function setCheckbox(index, teks, tercapai) {
+        const items = document.querySelectorAll(".checkbox-item");
+        const textEls = document.querySelectorAll(".checkbox-text");
+
+        if (textEls[index]) textEls[index].textContent = teks;
+
+        if (items[index]) {
+            const checkmark = items[index].querySelector(".checkmark");
+            if (tercapai) {
+                items[index].classList.add("checked");
+                if (checkmark) checkmark.textContent = "✓";
+            } else {
+                items[index].classList.remove("checked");
+                if (checkmark) checkmark.textContent = "";
+            }
+        }
+    }
+
+    // =========================
     // LOAD DATA
     // =========================
     function loadFoodHistory() {
@@ -18,10 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================
     function updateAirCard() {
         try {
-            const waterData = JSON.parse(localStorage.getItem("waterData") || "[]");
+            const waterData  = JSON.parse(localStorage.getItem("waterData") || "[]");
             const todayWater = waterData.find(d => d.hari === today);
-            const cups = todayWater ? todayWater.cups : 0;
-            const liters = (cups * 0.25).toFixed(1);
+            const cups       = todayWater ? todayWater.cups : 0;
+            const liters     = (cups * 0.25).toFixed(1);
 
             const cardValue = document.querySelector(".card-air .card-value");
             const cardBtn   = document.querySelector(".card-air .card-btn");
@@ -29,14 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (cardValue) cardValue.textContent = liters + " liter/hari";
 
             if (cardBtn) {
-                if (cups >= 8)       { cardBtn.textContent = "Tercapai"; cardBtn.style.background = "#4CAF50"; }
-                else if (cups >= 5)  { cardBtn.textContent = "Cukup";    cardBtn.style.background = "#D4A04C"; }
-                else if (cups >= 1)  { cardBtn.textContent = "Kurang";   cardBtn.style.background = "#E8894D"; }
-                else                 { cardBtn.textContent = "Belum";    cardBtn.style.background = "#aaa"; }
+                if (cups >= 8)      { cardBtn.textContent = "Tercapai"; cardBtn.style.background = "#4CAF50"; }
+                else if (cups >= 5) { cardBtn.textContent = "Cukup";    cardBtn.style.background = "#D4A04C"; }
+                else if (cups >= 1) { cardBtn.textContent = "Kurang";   cardBtn.style.background = "#E8894D"; }
+                else                { cardBtn.textContent = "Belum";    cardBtn.style.background = "#aaa"; }
             }
 
-            const airChecklist = document.querySelectorAll(".checkbox-text")[0];
-            if (airChecklist) airChecklist.textContent = liters + " Liter konsumsi air";
+            // Centang kalau sudah >= 8 gelas (2 liter)
+            setCheckbox(0, liters + " Liter konsumsi air", cups >= 8);
 
         } catch (e) { console.error("Error air:", e); }
     }
@@ -46,10 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================
     function updateBABCard() {
         try {
-            const babData = JSON.parse(localStorage.getItem("bowelData") || "[]");
+            const babData  = JSON.parse(localStorage.getItem("bowelData") || "[]");
             const todayBAB = babData.find(d => d.hari === today);
-            const frek  = todayBAB ? todayBAB.frek : 0;
-            const tipe  = todayBAB ? todayBAB.tipe : "-";
+            const frek     = todayBAB ? todayBAB.frek : 0;
+            const tipe     = todayBAB ? todayBAB.tipe : "-";
 
             const cardValue = document.querySelector(".card-bab .card-value");
             const cardBtn   = document.querySelector(".card-bab .card-btn");
@@ -61,13 +93,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             if (cardBtn) {
-                if (frek === 0)      { cardBtn.textContent = "Belum";  cardBtn.style.background = "#aaa"; }
-                else if (frek <= 2)  { cardBtn.textContent = "Normal"; cardBtn.style.background = "#4CAF50"; }
-                else                 { cardBtn.textContent = "Sering"; cardBtn.style.background = "#E8894D"; }
+                if (frek === 0)     { cardBtn.textContent = "Belum";  cardBtn.style.background = "#aaa"; }
+                else if (frek <= 2) { cardBtn.textContent = "Normal"; cardBtn.style.background = "#4CAF50"; }
+                else                { cardBtn.textContent = "Sering"; cardBtn.style.background = "#E8894D"; }
             }
 
-            const babChecklist = document.querySelectorAll(".checkbox-text")[1];
-            if (babChecklist) babChecklist.textContent = frek + "x pup (" + tipe + ")";
+            // Centang kalau sudah BAB minimal 1x
+            setCheckbox(1, frek + "x pup (" + tipe + ")", frek >= 1);
 
         } catch (e) { console.error("Error BAB:", e); }
     }
@@ -77,31 +109,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================
     function updateFoodChecklist() {
         try {
-            const history = loadFoodHistory();
-            const todayData = history[today] || [];
+            const history    = loadFoodHistory();
+            const todayData  = history[today] || [];
             const totalMakan = todayData.length;
 
-            const makanChecklist = document.querySelectorAll(".checkbox-text")[2];
-            if (makanChecklist) {
-                makanChecklist.textContent = totalMakan + "x makan";
-            }
+            // Centang kalau sudah makan minimal 3x
+            setCheckbox(2, totalMakan + "x makan", totalMakan >= 3);
 
-        } catch (e) {
-            console.error("Error food:", e);
-        }
+        } catch (e) { console.error("Error food:", e); }
     }
 
     function getFoodStats() {
-        const history = loadFoodHistory();
+        const history   = loadFoodHistory();
         const todayData = history[today] || [];
 
-        const stats = {
-            pokok: 0,
-            lauk: 0,
-            sayur: 0,
-            buah: 0,
-            susu: 0
-        };
+        const stats = { pokok: 0, lauk: 0, sayur: 0, buah: 0, susu: 0 };
 
         todayData.forEach(item => {
             if (stats[item.cat] !== undefined) {
@@ -119,31 +141,89 @@ document.addEventListener("DOMContentLoaded", () => {
         const ctx = document.getElementById('statsChart');
         if (!ctx) return;
 
+        // Hancurkan chart lama kalau ada
+        const existing = Chart.getChart(ctx);
+        if (existing) existing.destroy();
+
         const stats = getFoodStats();
+        const total = stats.pokok + stats.lauk + stats.sayur + stats.buah + stats.susu;
+
+        // Kalau belum ada data → chart abu-abu semua
+        const data   = total > 0
+            ? [stats.pokok, stats.lauk, stats.sayur, stats.buah, stats.susu]
+            : [1, 1, 1, 1, 1]; // placeholder biar donut tetap bulat
+
+        const colors = total > 0
+            ? ['#5A3417', '#F5C563', '#E8894D', '#8B5A3C', '#666666']
+            : ['#E0E0E0', '#E0E0E0', '#E0E0E0', '#E0E0E0', '#E0E0E0'];
 
         new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ['Karbohidrat', 'Protein', 'Sayuran', 'Buah-buahan', 'Susu'],
                 datasets: [{
-                    data: [
-                        stats.pokok,
-                        stats.lauk,
-                        stats.sayur,
-                        stats.buah,
-                        stats.susu
-                    ],
-                    backgroundColor: ['#5A3417', '#F5C563', '#E8894D', '#8B5A3C', '#666666'],
+                    data,
+                    backgroundColor: colors,
                     borderWidth: 0
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: true,
-                plugins: { legend: { display: false } },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        filter: () => total > 0
+                    }
+                },
                 cutout: '65%'
             }
         });
+    }
+
+    // =========================
+    // NOTE HARIAN (artikel rotasi per hari)
+    // =========================
+    function updateNoteHarian() {
+        const artikelList = [
+            {
+                judul: "💧 Pentingnya Hidrasi",
+                isi: "Minum 8 gelas air sehari membantu melancarkan pencernaan, mencegah sembelit, dan menjaga kesehatan usus."
+            },
+            {
+                judul: "🥦 Manfaat Serat",
+                isi: "Serat dari sayur dan buah membantu pergerakan usus, menurunkan kolesterol, dan menjaga kadar gula darah tetap stabil."
+            },
+            {
+                judul: "💩 BAB yang Sehat",
+                isi: "BAB normal terjadi 1–2 kali sehari dengan tekstur lunak dan mudah dikeluarkan. Kurang dari itu bisa jadi tanda sembelit."
+            },
+            {
+                judul: "🍚 Karbohidrat & Pencernaan",
+                isi: "Pilih karbohidrat kompleks seperti nasi merah atau oat yang kaya serat dan dicerna lebih lambat, baik untuk usus."
+            },
+            {
+                judul: "🍗 Protein untuk Usus",
+                isi: "Protein dari ikan, tahu, dan tempe lebih mudah dicerna dibanding daging merah dan lebih ramah untuk kesehatan usus."
+            },
+            {
+                judul: "🍎 Buah & Kesehatan Usus",
+                isi: "Pepaya, pisang, dan apel mengandung enzim dan serat alami yang membantu pencernaan dan menjaga bakteri baik di usus."
+            },
+            {
+                judul: "🥛 Probiotik & Usus",
+                isi: "Yogurt dan susu fermentasi mengandung probiotik yang menjaga keseimbangan bakteri baik di usus dan meningkatkan imunitas."
+            },
+        ];
+
+        const hariIndex = new Date().getDay();
+        const artikel   = artikelList[hariIndex];
+
+        const noteTitle = document.querySelector(".note-title");
+        const noteText  = document.querySelector(".note-text");
+
+        if (noteTitle) noteTitle.textContent = artikel.judul;
+        if (noteText)  noteText.textContent  = artikel.isi;
     }
 
     // =========================
@@ -153,6 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBABCard();
     updateFoodChecklist();
     renderChart();
+    updateNoteHarian();
 
     // =========================
     // NAVIGASI
@@ -189,6 +270,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
         e.preventDefault();
         window.location.href = 'login.html';
+    });
+
+    document.getElementById('DiagnosisBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'diagnosis.html';
     });
 
 });

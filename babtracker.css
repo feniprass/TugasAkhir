@@ -104,8 +104,7 @@ body {
 
 .bottom-menu {
   margin-top: auto;
-  padding-top: 10px;
-  border-top: 1px solid rgba(139, 69, 19, 0.15);
+  margin-bottom: 20px;
 }
 
 /* ==================== MAIN CONTENT ==================== */
@@ -153,82 +152,7 @@ body {
   gap: 12px;
 }
 
-.search-bar {
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 25px;
-  padding: 8px 16px;
-  gap: 8px;
-}
-
-.search-bar input {
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
-  width: 180px;
-}
-
-.search-icon {
-  width: 14px;
-  height: 14px;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.btn-settings {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background-color: #fff;
-  border: none;
-  border-radius: 25px;
-  height: 40px;
-  padding: 0 16px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #8b4513;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn-settings:hover {
-  transform: translateY(-2px);
-}
-
-.btn-settings img {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-}
-
-.header-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s;
-  flex-shrink: 0;
-}
-
-.header-btn:hover {
-  transform: translateY(-2px);
-}
-
-.header-btn img {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-}
-
 /* ==================== BAB CONTENT ==================== */
-/* Sama dengan .water-content */
 .water-content {
   flex: 1;
   padding: 30px;
@@ -238,15 +162,7 @@ body {
   gap: 30px;
 }
 
-.greeting {
-  font-size: 16px;
-  font-weight: bold;
-  color: #8b4513;
-  margin-bottom: -15px;
-}
-
 /* ==================== BAB CARD ==================== */
-/* Sama dengan .water-card */
 .water-card {
   background-color: #fff;
   border-radius: 20px;
@@ -261,7 +177,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Icon pup — sama ukuran dengan icon_gelas di water tracker */
 .water-glass,
 .poop-img {
   width: 140px;
@@ -295,7 +210,6 @@ body {
   overflow: hidden;
 }
 
-/* Override: oranye untuk BAB, biru untuk water */
 .progress-value {
   height: 100%;
   background: linear-gradient(to right, #e8894d, #d4720b);
@@ -346,7 +260,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Override: oranye untuk BAB */
 .water-status {
   flex-shrink: 0;
   background-color: #d4720b;
@@ -372,7 +285,6 @@ body {
 }
 
 /* ==================== BOWEL LOG ==================== */
-/* Sama dengan .water-log */
 .water-log {
   background-color: #fff;
   border-radius: 20px;
@@ -430,19 +342,10 @@ body {
   color: #aaa;
 }
 
-.type-normal {
-  color: #27760d;
-}
-.type-soft {
-  color: #a06b00;
-}
-.type-hard {
-  color: #bb3322;
-}
-.blood-yes {
-  color: #cc3311;
-  font-weight: 700;
-}
+.type-normal { color: #27760d; }
+.type-soft   { color: #a06b00; }
+.type-hard   { color: #bb3322; }
+.blood-yes   { color: #cc3311; font-weight: 700; }
 
 /* ==================== MODAL ==================== */
 .modal-overlay {
@@ -518,40 +421,18 @@ body {
   color: #d4a04c;
 }
 
-.modal-actions button:hover {
-  opacity: 0.85;
-}
+.modal-actions button:hover { opacity: 0.85; }
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 1024px) {
-  .water-card {
-    flex-direction: column;
-    text-align: center;
-  }
-  .water-actions {
-    justify-content: center;
-  }
+  .water-card { flex-direction: column; text-align: center; }
+  .water-actions { justify-content: center; }
 }
 
 @media (max-width: 768px) {
-  .sidebar {
-    width: 70px;
-    padding: 15px 8px;
-  }
-  .logo-text,
-  .menu-text,
-  .menu-title {
-    display: none;
-  }
-  .menu-item {
-    justify-content: center;
-  }
-  .water-glass,
-  .poop-img {
-    width: 100px;
-    height: 100px;
-  }
-  .water-info h2 {
-    font-size: 22px;
-  }
+  .sidebar { width: 70px; padding: 15px 8px; }
+  .logo-text, .menu-text, .menu-title { display: none; }
+  .menu-item { justify-content: center; }
+  .water-glass, .poop-img { width: 100px; height: 100px; }
+  .water-info h2 { font-size: 22px; }
 }

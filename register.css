@@ -37,10 +37,16 @@ body {
     gap: 12px;
 }
 
-.logo-icon {
+.logo_usus {
     width: 45px;
     height: 45px;
-    font-size: 35px;
+    object-fit: contain;
+}
+
+.logo_babuddy {
+    max-width: 320px;
+    max-height: 320px;
+    object-fit: contain;
 }
 
 .logo-text {
@@ -54,31 +60,6 @@ body {
     justify-content: center;
     align-items: center;
     gap: 20px;
-}
-
-.apple {
-    font-size: 100px;
-    animation: float 3s ease-in-out infinite;
-}
-
-.intestine {
-    font-size: 140px;
-    animation: bounce 2s ease-in-out infinite;
-}
-
-.water {
-    font-size: 100px;
-    animation: float 3s ease-in-out infinite 0.5s;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-}
-
-@keyframes bounce {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
 }
 
 /* Right Side - Register Form */
@@ -163,12 +144,45 @@ h1 {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 20px;
     padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+}
+
+/* Sembunyikan icon mata bawaan browser */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-textfield-decoration-container {
+    display: none;
+}
+
+input::-webkit-credentials-auto-fill-button {
+    visibility: hidden;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .eye-icon {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
 }
 
 /* Checkbox Group */
@@ -211,8 +225,8 @@ h1 {
 }
 
 .checkbox-container input:checked ~ .checkmark {
-    background-color: F58E3D;
-    border-color: F58E3D;
+    background-color: #F58E3D;
+    border-color: #F58E3D;
 }
 
 .checkmark:after {
@@ -265,7 +279,7 @@ h1 {
 }
 
 .btn-register:hover {
-    background-color: #F58E3D;
+    background-color: #e07d2e;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(232, 125, 92, 0.4);
 }
@@ -300,126 +314,28 @@ h1 {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .left-side {
-        min-height: 35vh;
-        padding: 30px;
-    }
-
-    .logo {
-        position: static;
-        margin-bottom: 20px;
-    }
-
-    .illustration {
-        gap: 15px;
-    }
-
-    .apple, .water {
-        font-size: 70px;
-    }
-
-    .intestine {
-        font-size: 100px;
-    }
-
-    .right-side {
-        padding: 40px 30px;
-    }
+    .container { flex-direction: column; }
+    .left-side { min-height: 35vh; padding: 30px; }
+    .logo { position: static; margin-bottom: 20px; }
+    .right-side { padding: 40px 30px; }
 }
 
 @media (max-width: 768px) {
-    .left-side {
-        min-height: 30vh;
-        padding: 20px;
-    }
-
-    .logo-text {
-        font-size: 24px;
-    }
-
-    .logo-icon {
-        font-size: 30px;
-    }
-
-    .apple, .water {
-        font-size: 60px;
-    }
-
-    .intestine {
-        font-size: 80px;
-    }
-
-    .right-side {
-        padding: 30px 20px;
-    }
-
-    h1 {
-        font-size: 28px;
-    }
-
-    .register-container {
-        max-width: 100%;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
+    .left-side { min-height: 30vh; padding: 20px; }
+    .logo-text { font-size: 24px; }
+    .right-side { padding: 30px 20px; }
+    h1 { font-size: 28px; }
+    .register-container { max-width: 100%; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
 }
 
 @media (max-width: 480px) {
-    .left-side {
-        min-height: 25vh;
-        padding: 15px;
-    }
-
-    .logo {
-        gap: 8px;
-    }
-
-    .logo-text {
-        font-size: 20px;
-    }
-
-    .logo-icon {
-        font-size: 26px;
-    }
-
-    .illustration {
-        gap: 10px;
-    }
-
-    .apple, .water {
-        font-size: 50px;
-    }
-
-    .intestine {
-        font-size: 70px;
-    }
-
-    .right-side {
-        padding: 25px 15px;
-    }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    .form-group input {
-        padding: 12px 15px;
-        font-size: 14px;
-    }
-
-    .btn-register {
-        padding: 14px;
-        font-size: 16px;
-    }
-
-    .checkbox-text {
-        font-size: 13px;
-    }
+    .left-side { min-height: 25vh; padding: 15px; }
+    .logo { gap: 8px; }
+    .logo-text { font-size: 20px; }
+    .right-side { padding: 25px 15px; }
+    h1 { font-size: 24px; }
+    .form-group input { padding: 12px 15px; font-size: 14px; }
+    .btn-register { padding: 14px; font-size: 16px; }
+    .checkbox-text { font-size: 13px; }
 }

@@ -72,8 +72,7 @@ body {
 
 .bottom-menu {
   margin-top: auto;
-  padding-top: 10px;
-  border-top: 1px solid rgba(139,69,19,0.15);
+  margin-bottom: 20px;
 }
 
 /* ==================== MAIN ==================== */
@@ -249,7 +248,7 @@ body {
   color: #fff;
 }
 
-/* Day bars — kotak angka per hari */
+/* Day bars */
 .day-bars {
   display: flex;
   gap: 4px;

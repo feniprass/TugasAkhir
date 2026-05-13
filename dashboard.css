@@ -101,6 +101,7 @@ body {
 
 .bottom-menu {
     margin-top: auto;
+    margin-bottom: 20px;
     flex-shrink: 0;
 }
 
@@ -270,6 +271,7 @@ body {
     transform: none;
     box-shadow: none;
 }
+
 .card-note {
     display: flex;
     flex-direction: column;
@@ -304,7 +306,7 @@ body {
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    overflow: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -357,9 +359,11 @@ body {
 
 .chart-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     flex: 1;
+    margin-top: -30px;
+    padding-right: 20px;
 }
 
 #statsChart {

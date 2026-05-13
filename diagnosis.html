@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>BABuddy – Diagnosis Bulanan</title>
+  <link rel="stylesheet" href="diagnosis.css"/>
+</head>
+<body>
+<div class="container">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="icon/icon_usus.png" class="logo-icon" alt="logo"/>
+      <div class="logo-text">BABuddy</div>
+    </div>
+
+    <div class="menu-section">
+      <div class="menu-title">MENU</div>
+      <nav class="menu">
+        <a href="dashboard.html" class="menu-item">
+          <span class="menu-icon">📊</span>
+          <span class="menu-text">Dashboard</span>
+        </a>
+        <a href="watertracker.html" class="menu-item">
+          <img src="icon/icon_air.png" class="menu-icon-img" alt="air"/>
+          <span class="menu-text">Pemantau Air</span>
+        </a>
+        <a href="babtracker.html" class="menu-item">
+          <img src="icon/icon_bab.png" class="menu-icon-img" alt="bab"/>
+          <span class="menu-text">Pemantau BAB</span>
+        </a>
+        <a href="foodtracker.html" class="menu-item">
+          <img src="icon/icon_makanan.png" class="menu-icon-img" alt="makanan"/>
+          <span class="menu-text">Pemantau Asupan Makanan</span>
+        </a>
+        <a href="notifikasi.html" class="menu-item">
+          <img src="icon/icon_notifikasi.png" class="menu-icon-img" alt="notifikasi"/>
+          <span class="menu-text">Notifikasi</span>
+        </a>
+        <a href="analisis.html" class="menu-item">
+          <img src="icon/icon_analisis.png" class="menu-icon-img" alt="analisis"/>
+          <span class="menu-text">Analisis Mingguan</span>
+        </a>
+        <a href="diagnosis.html" class="menu-item active">
+          <img src="icon/icon_analisis.png" class="menu-icon-img" alt="diagnosis"/>
+          <span class="menu-text">Diagnosis</span>
+        </a>
+      </nav>
+    </div>
+
+   <div class="bottom-menu">
+        <a href="#" class="menu-item" id="profileBtn">
+          <img src="icon/icon_profile.png" class="menu-icon-img" alt="profil" />
+          <span class="menu-text">Profil</span>
+        </a>
+      <a href="login.html" class="menu-item" id="logoutBtn">
+        <img src="icon/icon_logout.png" class="menu-icon-img" alt="logout"/>
+        <span class="menu-text">Keluar</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="main-content">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <img src="icon/icon_analisis.png" class="header-icon" alt="diagnosis"/>
+        <h1>Diagnosis Bulanan</h1>
+      </div>
+      <div class="header-right">
+      </div>
+    </header>
+
+    <!-- DIAGNOSIS CONTENT -->
+    <div class="diag-content">
+
+      <!-- SKOR BULANAN -->
+      <div class="score-card">
+        <div class="score-left">
+          <img src="icon/icon_analisis.png" class="score-img" alt="skor"/>
+          <div>
+            <p class="score-label">Skor Kesehatan Pencernaan Bulanan</p>
+            <p class="score-value">
+              <span id="total-score">—</span>
+              <span class="score-denom"> / 100</span>
+            </p>
+          </div>
+        </div>
+        <div class="score-badge" id="score-badge">—</div>
+      </div>
+
+      <!-- 4 KARTU RINGKASAN -->
+      <div class="summary-row">
+
+        <div class="sum-card c-blue">
+          <div class="sum-top">
+            <img src="icon/icon_air.png" class="sum-img" alt="air"/>
+            <div>
+              <p class="sum-title">Rata-rata Air</p>
+              <p class="sum-sub" id="avg-air">— gelas/hari</p>
+            </div>
+          </div>
+          <p class="sum-big" id="score-air">—</p>
+          <p class="sum-note" id="note-air">dari target 8 gelas/hari</p>
+        </div>
+
+        <div class="sum-card c-orange">
+          <div class="sum-top">
+            <img src="icon/icon_makanan.png" class="sum-img" alt="nutrisi"/>
+            <div>
+              <p class="sum-title">Rata-rata Nutrisi</p>
+              <p class="sum-sub" id="avg-nutrisi">— kategori/hari</p>
+            </div>
+          </div>
+          <p class="sum-big" id="score-nutrisi">—</p>
+          <p class="sum-note" id="note-nutrisi">dari target 5 kategori/hari</p>
+        </div>
+
+        <div class="sum-card c-green">
+          <div class="sum-top">
+            <img src="icon/icon_bab.png" class="sum-img" alt="bab"/>
+            <div>
+              <p class="sum-title">Rata-rata BAB</p>
+              <p class="sum-sub" id="avg-bab">—x/hari</p>
+            </div>
+          </div>
+          <p class="sum-big" id="score-bab">—</p>
+          <p class="sum-note">frekuensi ideal 1–2x/hari</p>
+        </div>
+
+        <div class="sum-card c-teal">
+          <div class="sum-top">
+            <img src="icon/icon_notifikasi.png" class="sum-img" alt="aktif"/>
+            <div>
+              <p class="sum-title">Hari Aktif Catat</p>
+              <p class="sum-sub" id="hari-aktif">— hari</p>
+            </div>
+          </div>
+          <p class="sum-big" id="pct-aktif">—</p>
+          <p class="sum-note" id="note-total-hari">dari — hari bulan ini</p>
+        </div>
+
+      </div><!-- /summary-row -->
+
+      <!-- GRID BAWAH 3 KOLOM -->
+      <div class="bottom-grid">
+
+        <!-- KIRI: Tren Mingguan -->
+        <div class="diag-card tren-card">
+          <h3>📆 Tren Mingguan</h3>
+          <p class="card-subtitle">Rata-rata per minggu dalam sebulan</p>
+          <div class="week-table">
+            <div class="week-head">
+              <span>Minggu</span>
+              <span>💧 Air</span>
+              <span>🥗 Nutrisi</span>
+              <span>💩 BAB</span>
+              <span>Skor</span>
+            </div>
+            <div id="week-rows"></div>
+          </div>
+          <p class="chart-label">Skor per Minggu</p>
+          <div class="bar-chart" id="bar-chart"></div>
+        </div>
+
+        <!-- TENGAH: Makanan + Tekstur -->
+        <div class="mid-col">
+          <div class="diag-card">
+            <h3>🍽️ Rekap Kategori Makanan</h3>
+            <p class="card-subtitle">Total hari terpenuhi selama sebulan</p>
+            <div id="food-list"></div>
+          </div>
+          <div class="diag-card">
+            <h3>📊 Rekap Tekstur BAB</h3>
+            <div id="texture-list"></div>
+          </div>
+        </div>
+
+        <!-- KANAN: Hasil Diagnosis + Saran -->
+        <div class="right-col">
+          <div class="diag-card">
+            <h3>🔍 Hasil Diagnosis</h3>
+            <div id="diagnosis-list"></div>
+          </div>
+          <div class="diag-card note-card">
+            <img src="icon/icon_notifikasi.png" class="note-img" alt="saran"/>
+            <h3>Saran Dokter Virtual</h3>
+            <div id="saran-list" class="note-text"></div>
+          </div>
+        </div>
+
+      </div><!-- /bottom-grid -->
+    </div><!-- /diag-content -->
+  </main>
+</div>
+
+<script src="diagnosis.js"></script>
+</body>
+</html>

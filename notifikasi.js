@@ -7,11 +7,11 @@ const TARGET_CUPS = 8;
 const TARGET_FREK = 2;
 
 const KATEGORI_INFO = {
-  pokok: { label: "Makanan Pokok", icon: "🍚", contoh: "Nasi, Mie, Kentang" },
-  lauk:  { label: "Lauk Pauk",     icon: "🍗", contoh: "Ayam, Ikan, Tahu, Tempe" },
-  susu:  { label: "Susu",          icon: "🥛", contoh: "Susu, Yogurt, Keju" },
-  buah:  { label: "Buah-buahan",   icon: "🍎", contoh: "Apel, Mangga, Jeruk" },
-  sayur: { label: "Sayuran",       icon: "🥦", contoh: "Bayam, Wortel, Kangkung" },
+  pokok: { label: "Makanan Pokok", icon: "icon/icon_nasi.png", contoh: "Nasi, Mie, Kentang" },
+  lauk:  { label: "Lauk Pauk",     icon: "icon/icon_ayam.png", contoh: "Ayam, Ikan, Tahu, Tempe" },
+  susu:  { label: "Susu",          icon: "icon/icon_susu.png", contoh: "Susu, Yogurt, Keju" },
+  buah:  { label: "Buah-buahan",   icon: "icon/icon_buah.png", contoh: "Apel, Mangga, Jeruk" },
+  sayur: { label: "Sayuran",       icon: "icon/icon_sayur.png", contoh: "Bayam, Wortel, Kangkung" },
 };
 
 // ── Ambil hari ini ──

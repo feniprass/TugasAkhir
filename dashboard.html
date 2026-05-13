@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BABuddy - Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
+    <script>
+        // Ambil nama dari localStorage sebelum halaman render
+        (function(){
+            var raw = localStorage.getItem('userName') || localStorage.getItem('userEmail') || '';
+            if (!raw) return;
+            var name = raw.includes('@') ? raw.split('@')[0] : raw;
+            name = name.replace(/[._\-]/g,' ').split(' ')
+                       .filter(function(w){return w.length>0;})
+                       .map(function(w){return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();})
+                       .join(' ');
+            window.__greetName = name;
+        })();
+    </script>
 </head>
 <body>
     <div class="container">
@@ -42,7 +55,7 @@
                         <img src="icon/icon_analisis.png" class="menu-icon">
                         <span class="menu-text">Analisis Mingguan</span>
                     </a>
-                    <a href="diagnosis" class="menu-item">
+                    <a href="diagnosis.html" class="menu-item" id="DiagnosisBtn">
                         <img src="icon/icon_analisis.png" class="menu-icon">
                         <span class="menu-text">Diagnosis</span>
                     </a>
@@ -50,6 +63,10 @@
             </div>
 
             <div class="menu-section bottom-menu">
+                <a href="#" class="menu-item" id="profileBtn">
+                    <img src="icon/icon_profile.png" class="menu-icon">
+                    <span class="menu-text">Profil</span>
+                </a>
                 <a href="#" class="menu-item" id="logoutBtn">
                     <img src="icon/icon_logout.png" class="menu-icon">
                     <span class="menu-text">Keluar</span>
@@ -61,18 +78,8 @@
         <main class="main-content">
             <!-- Header -->
             <header class="header">
-                <div class="greeting">Halo, Penpen!</div>
+                <div class="greeting" id="greetingText">Halo!</div>
                 <div class="header-actions">
-                    <div class="search-bar">
-                        <input type="text" placeholder="Search..." id="searchInput">
-                        <img src="icon/icon_search.png" class="search-btn">
-                    </div>
-                    <button class="icon-btn" id="notifBtn">
-                        <img src="icon/icon_notifikasi.png" alt="Notifikasi">
-                    </button>
-                    <button class="icon-btn" id="profileBtn">
-                        <img src="icon/icon_profile.png" alt="Profile">
-                    </button>
                 </div>
             </header>
 
@@ -84,16 +91,16 @@
                     <div class="card card-air">
                         <img src="icon/icon_gelas.png" class="card-icon">
                         <div class="card-title">Air</div>
-                        <div class="card-value">2.5 liter/hari</div>
-                        <button class="card-btn">Hidrasi</button>
+                        <div class="card-value">0.0 liter/hari</div>
+                        <button class="card-btn" style="background:#aaa;">Belum</button>
                     </div>
 
                     <!-- BAB Card -->
                     <div class="card card-bab">
                         <img src="icon/icon_pup.png" class="card-icon">
                         <div class="card-title">BAB</div>
-                        <div class="card-value">2 kali hari ini</div>
-                        <button class="card-btn">Sehat</button>
+                        <div class="card-value">Belum BAB hari ini</div>
+                        <button class="card-btn" style="background:#aaa;">Belum</button>
                     </div>
 
                     <!-- Note Card -->
@@ -111,7 +118,6 @@
                     <div class="card card-statistik">
                         <div class="card-header">
                             <h3>Statistik</h3>
-                            <button class="dropdown-btn" id="statsDropdown">selengkapnya ▼</button>
                         </div>
                         
                         <div class="stats-legend">
@@ -128,7 +134,7 @@
                                 <span>Sayuran</span>
                             </div>
                             <div class="legend-item">
-                                <span class="legend-color" style="background-color: #5A3417;"></span>
+                                <span class="legend-color" style="background-color: #8B5A3C;"></span>
                                 <span>Buah-buahan</span>
                             </div>
                             <div class="legend-item">
@@ -147,22 +153,22 @@
                         <h3>Catatan Harian</h3>
                         
                         <div class="checklist">
-                            <label class="checkbox-item checked">
-                                <input type="checkbox" checked>
-                                <span class="checkmark">✓</span>
-                                <span class="checkbox-text">2.5 Liter konsumsi air</span>
+                            <label class="checkbox-item">
+                                <input type="checkbox" disabled>
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">0.0 Liter konsumsi air</span>
                             </label>
                             
-                            <label class="checkbox-item checked">
-                                <input type="checkbox" checked>
-                                <span class="checkmark">✓</span>
-                                <span class="checkbox-text">2x pup</span>
+                            <label class="checkbox-item">
+                                <input type="checkbox" disabled>
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">0x pup (-)</span>
                             </label>
                             
-                            <label class="checkbox-item checked">
-                                <input type="checkbox" checked>
-                                <span class="checkmark">✓</span>
-                                <span class="checkbox-text">3x makan</span>
+                            <label class="checkbox-item">
+                                <input type="checkbox" disabled>
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">0x makan</span>
                             </label>
                         </div>
                     </div>
@@ -173,5 +179,15 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="dashboard.js"></script>
+
+    <!-- Set greeting setelah DOM siap -->
+    <script>
+        (function(){
+            var el = document.getElementById('greetingText');
+            if (el && window.__greetName) {
+                el.textContent = 'Halo, ' + window.__greetName + '!';
+            }
+        })();
+    </script>
 </body>
 </html>

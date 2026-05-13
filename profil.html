@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BABuddy - Profil</title>
+  <link rel="stylesheet" href="profil.css" />
+</head>
+<body>
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="icon/icon_usus.png" class="logo-icon" alt="logo" />
+      <div class="logo-text">BABuddy</div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-title">MENU</div>
+      <nav class="menu">
+        <a href="dashboard.html" class="menu-item">
+          <span class="menu-icon">📊</span>
+          <span class="menu-text">Dashboard</span>
+        </a>
+        <a href="watertracker.html" class="menu-item">
+          <img src="icon/icon_air.png" class="menu-icon-img" alt="air"/>
+          <span class="menu-text">Pemantau Air</span>
+        </a>
+        <a href="babtracker.html" class="menu-item">
+          <img src="icon/icon_bab.png" class="menu-icon-img" alt="bab"/>
+          <span class="menu-text">Pemantau BAB</span>
+        </a>
+        <a href="foodtracker.html" class="menu-item">
+          <img src="icon/icon_makanan.png" class="menu-icon-img" alt="makanan"/>
+          <span class="menu-text">Pemantau Asupan Makanan</span>
+        </a>
+        <a href="notifikasi.html" class="menu-item">
+          <img src="icon/icon_notifikasi.png" class="menu-icon-img" alt="notifikasi"/>
+          <span class="menu-text">Notifikasi</span>
+        </a>
+        <a href="analisis.html" class="menu-item">
+          <img src="icon/icon_analisis.png" class="menu-icon-img" alt="analisis"/>
+          <span class="menu-text">Analisis Mingguan</span>
+        </a>
+        <a href="diagnosis.html" class="menu-item">
+          <img src="icon/icon_analisis.png" class="menu-icon-img" alt="diagnosis"/>
+          <span class="menu-text">Diagnosis</span>
+        </a>
+      </nav>
+    </div>
+    <div class="bottom-menu">
+      <a href="profil.html" class="menu-item active">
+        <img src="icon/icon_profile.png" class="menu-icon-img" alt="profil"/>
+        <span class="menu-text">Profil</span>
+      </a>
+      <a href="login.html" class="menu-item" id="logoutBtn">
+        <img src="icon/icon_logout.png" class="menu-icon-img" alt="logout"/>
+        <span class="menu-text">Keluar</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <img src="icon/icon_profile.png" class="header-icon" alt="profil"/>
+        <h1>Profil Saya</h1>
+      </div>
+    </header>
+
+    <!-- PROFIL CONTENT -->
+    <div class="profil-content">
+
+      <!-- KARTU PROFIL UTAMA -->
+      <div class="profil-hero">
+        <div class="avatar-wrap">
+          <div class="avatar" id="avatarCircle">
+            <span id="avatarInitial">?</span>
+          </div>
+          <div class="avatar-badge">👤</div>
+        </div>
+        <div class="hero-info">
+          <h2 id="namaLengkap">—</h2>
+          <p id="emailProfil" class="hero-email">—</p>
+          <span class="hero-tag">Pengguna BABuddy</span>
+        </div>
+        <button class="btn-edit" id="btnEdit">✏️ Edit Profil</button>
+      </div>
+
+      <!-- GRID INFO + STATISTIK -->
+      <div class="profil-grid">
+
+        <!-- INFO AKUN -->
+        <div class="profil-card">
+          <div class="card-title-row">
+            <span class="card-icon-label">👤</span>
+            <h3>Informasi Akun</h3>
+          </div>
+          <div class="info-list">
+            <div class="info-row">
+              <span class="info-label">Nama Depan</span>
+              <span class="info-value" id="infoNamaDepan">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Nama Belakang</span>
+              <span class="info-value" id="infoNamaBelakang">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Email</span>
+              <span class="info-value" id="infoEmail">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Bergabung</span>
+              <span class="info-value" id="infoBergabung">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- STATISTIK MINGGU INI -->
+        <div class="profil-card">
+          <div class="card-title-row">
+            <span class="card-icon-label">📊</span>
+            <h3>Statistik Minggu Ini</h3>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-item stat-blue">
+              <div class="stat-val" id="statAir">—</div>
+              <div class="stat-label">Rata-rata Air</div>
+              <div class="stat-sub">gelas/hari</div>
+            </div>
+            <div class="stat-item stat-orange">
+              <div class="stat-val" id="statBab">—</div>
+              <div class="stat-label">Rata-rata BAB</div>
+              <div class="stat-sub">x/hari</div>
+            </div>
+            <div class="stat-item stat-green">
+              <div class="stat-val" id="statNutrisi">—</div>
+              <div class="stat-label">Rata-rata Nutrisi</div>
+              <div class="stat-sub">kategori/hari</div>
+            </div>
+            <div class="stat-item stat-brown">
+              <div class="stat-val" id="statHariAktif">—</div>
+              <div class="stat-label">Hari Aktif</div>
+              <div class="stat-sub">dari 7 hari</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GANTI PASSWORD -->
+        <div class="profil-card">
+          <div class="card-title-row">
+            <span class="card-icon-label">🔒</span>
+            <h3>Ganti Kata Sandi</h3>
+          </div>
+          <div class="form-group">
+            <label>Kata Sandi Lama</label>
+            <input type="password" id="passLama" placeholder="Masukkan kata sandi lama" />
+          </div>
+          <div class="form-group">
+            <label>Kata Sandi Baru</label>
+            <input type="password" id="passBaru" placeholder="Masukkan kata sandi baru" />
+          </div>
+          <div class="form-group">
+            <label>Konfirmasi Kata Sandi Baru</label>
+            <input type="password" id="passKonfirmasi" placeholder="Ulangi kata sandi baru" />
+          </div>
+          <button class="btn-simpan" id="btnGantiPass">Simpan Kata Sandi</button>
+          <p class="msg-pass" id="msgPass"></p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MODAL EDIT PROFIL -->
+<div class="modal-overlay" id="modalEdit">
+  <div class="modal">
+    <h3>Edit Profil</h3>
+    <div class="form-group">
+      <label>Nama Depan</label>
+      <input type="text" id="editNamaDepan" placeholder="Nama depan" />
+    </div>
+    <div class="form-group">
+      <label>Nama Belakang</label>
+      <input type="text" id="editNamaBelakang" placeholder="Nama belakang" />
+    </div>
+    <div class="modal-actions">
+      <button onclick="simpanEditProfil()">Simpan</button>
+      <button onclick="tutupModal()">Batal</button>
+    </div>
+  </div>
+</div>
+
+<script src="profil.js"></script>
+</body>
+</html>
