@@ -436,7 +436,6 @@ body {
     margin-top: auto;
 }
 
-/* Responsive Design */
 @media (max-width: 1200px) {
     .sidebar {
         width: 220px;

@@ -1,5 +1,3 @@
-// ==================== LOGIN JAVASCRIPT ====================
-
 function iconEye() {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#8B4513" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -83,7 +81,7 @@ loginForm.addEventListener('submit', function(e) {
         return;
     }
 
-    // Login berhasil — simpan sesi dengan nama depan dari akun
+    // Login berhasil 
     localStorage.setItem('userName', akun.namaDepan);
     localStorage.setItem('userEmail', akun.email);
 

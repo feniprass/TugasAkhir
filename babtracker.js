@@ -1,9 +1,6 @@
 const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 const TARGET_FREK = 2;
 
-// =========================================
-//  RESET OTOMATIS SETIAP MINGGU BARU
-// =========================================
 function checkWeeklyReset() {
   try {
     const now = new Date();

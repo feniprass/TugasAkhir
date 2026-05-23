@@ -276,5 +276,10 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         window.location.href = 'diagnosis.html';
     });
+    document.getElementById('profileBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'profil.html';
+    });
+
 
 });

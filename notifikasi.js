@@ -1,7 +1,3 @@
-// =========================================
-//  BABuddy - Notifikasi Script
-// =========================================
-
 const DAY_NAMES   = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 const TARGET_CUPS = 8;
 const TARGET_FREK = 2;

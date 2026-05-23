@@ -1,10 +1,8 @@
-// =========================================
-//  BABuddy - Analisis Mingguan Script
-// =========================================
-
 const DAY_NAMES  = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 const DAY_SHORT  = ["Min","Sen","Sel","Rab","Kam","Jum","Sab"];
 const TARGET_CUPS = 8;
+const ML_PER_CUP  = 250; // 1 gelas = 250 ml
+const TARGET_ML   = TARGET_CUPS * ML_PER_CUP; // 2000 ml
 
 function getWaterData() {
   try { return JSON.parse(localStorage.getItem("waterData") || "[]"); } catch { return []; }
@@ -27,26 +25,27 @@ function getWeekLabel() {
   return fmt(start) + " – " + fmt(end);
 }
 
-// ── Render Air ──
+// ── Render Air (satuan ml) ──
 function renderAir(waterData) {
   const bars = document.getElementById("airBars");
   if (!bars) return;
   bars.innerHTML = "";
-  let total = 0;
+  let totalCups = 0;
   DAY_NAMES.forEach((day, i) => {
     const found = waterData.find(d => d.hari === day);
     const cups  = found ? found.cups : 0;
-    total += cups;
+    const liter = (cups * ML_PER_CUP / 1000).toFixed(1); // tampilkan dalam liter
+    totalCups += cups;
     const col = document.createElement("div");
     col.className = "day-col";
     col.innerHTML = `
       <div class="day-label">${DAY_SHORT[i]}</div>
-      <div class="day-val ${cups >= TARGET_CUPS ? "highlight" : ""}">${cups}</div>`;
+      <div class="day-val ${cups >= TARGET_CUPS ? "highlight" : ""}">${liter}</div>`;
     bars.appendChild(col);
   });
-  const avg = (total / 7).toFixed(1);
-  document.getElementById("airSub").textContent = avg + "/8 gelas";
-  document.getElementById("airScore").textContent = Math.min(Math.round((total / (TARGET_CUPS * 7)) * 100), 100);
+  const avgMl = Math.round((totalCups * ML_PER_CUP) / 7);
+  document.getElementById("airSub").textContent = avgMl + "/2000 ml";
+  document.getElementById("airScore").textContent = Math.min(Math.round((totalCups / (TARGET_CUPS * 7)) * 100), 100);
 }
 
 // ── Render Nutrisi ──
@@ -94,7 +93,7 @@ function renderBab(babData) {
   document.getElementById("babScore").textContent = Math.min(Math.round((total / (2 * 7)) * 100), 100);
 }
 
-// ── Render Kategori Makanan (hitung hari, bukan item) ──
+// ── Render Kategori Makanan ──
 function renderKategori(foodHistory) {
   const list = document.getElementById("katList");
   if (!list) return;
@@ -103,12 +102,11 @@ function renderKategori(foodHistory) {
   const katInfo = [
     { key: "pokok", label: "Makanan Pokok", icon: "icon/icon_nasi.png",  cls: "fill-pokok" },
     { key: "lauk",  label: "Lauk Pauk",     icon: "icon/icon_ayam.png",  cls: "fill-lauk"  },
-    { key: "susu",  label: "Susu",           icon: "icon/icon_susu.png",  cls: "fill-susu"  },
-    { key: "buah",  label: "Buah-buahan",    icon: "icon/icon_buah.png",  cls: "fill-buah"  },
-    { key: "sayur", label: "Sayuran",         icon: "icon/icon_sayur.png", cls: "fill-sayur" },
+    { key: "susu",  label: "Susu",          icon: "icon/icon_susu.png",  cls: "fill-susu"  },
+    { key: "buah",  label: "Buah-buahan",   icon: "icon/icon_buah.png",  cls: "fill-buah"  },
+    { key: "sayur", label: "Sayuran",       icon: "icon/icon_sayur.png", cls: "fill-sayur" },
   ];
 
-  // Hitung berapa HARI kategori itu muncul (bukan total item)
   const hariCounts = {};
   katInfo.forEach(k => { hariCounts[k.key] = 0; });
   DAY_NAMES.forEach(day => {
@@ -141,7 +139,7 @@ function renderTekstur(babData) {
   if (!list) return;
   list.innerHTML = "";
 
-  const tipe  = { Keras: 0, Normal: 0, Lembek: 0 };
+  const tipe = { Keras: 0, Normal: 0, Lembek: 0 };
   babData.forEach(d => {
     if (d.tipe === "Keras")       tipe.Keras++;
     else if (d.tipe === "Normal") tipe.Normal++;
@@ -171,75 +169,69 @@ function renderTekstur(babData) {
 function hitungSkor(waterData, babData, foodHistory) {
   let airTotal = 0;
   waterData.forEach(d => { airTotal += d.cups; });
-  const airSkor = Math.min(Math.round((airTotal / (TARGET_CUPS * 7)) * 40), 40);
+  const airSkor     = Math.min(Math.round((airTotal / (TARGET_CUPS * 7)) * 33), 33);
 
   let katTotal = 0;
   DAY_NAMES.forEach(day => {
     const items = foodHistory[day] || [];
     katTotal += new Set(items.map(it => it.cat)).size;
   });
-  const nutrisiSkor = Math.min(Math.round((katTotal / (5 * 7)) * 40), 40);
+  const nutrisiSkor = Math.min(Math.round((katTotal / (5 * 7)) * 34), 34);
 
   let babNormal = 0;
   babData.forEach(d => {
     if (d.frek >= 1 && d.frek <= 2 && d.darah !== "Berdarah") babNormal++;
   });
-  const babSkor = Math.min(Math.round((babNormal / 7) * 20), 20);
+  const babSkor = Math.min(Math.round((babNormal / 7) * 33), 33);
 
   const total = airSkor + nutrisiSkor + babSkor;
-  let badge = "Buruk";
-  let color = "#E53935";
+  let badge = "Buruk", color = "#E53935";
   if (total >= 80)      { badge = "Sangat Baik"; color = "#27760d"; }
   else if (total >= 60) { badge = "Baik";        color = "#2BBECB"; }
   else if (total >= 40) { badge = "Cukup";       color = "#F5A623"; }
 
-  return { total, badge, color, airTotal, katTotal, babNormal };
+  return { total, badge, color };
 }
 
-// ── Render Tips (berdasarkan data nyata) ──
+// ── Render Tips (satuan ml) ──
 function renderTips(skor, waterData, babData, foodHistory) {
   const tipsEl = document.getElementById("tipsText");
   if (!tipsEl) return;
 
-  const tipsList = [];
-
-  // Cek darah dulu — prioritas tertinggi
+  // Darah — prioritas tertinggi
   const hasBlood = babData.some(d => d.darah === "Berdarah");
   if (hasBlood) {
     tipsEl.textContent = "🚨 Terdeteksi darah pada BAB minggu ini. Segera periksakan ke fasilitas kesehatan terdekat.";
     return;
   }
 
-  // Air — hitung rata-rata per hari
-  const totalAir = waterData.reduce((s, d) => s + d.cups, 0);
-  const avgAir   = totalAir / 7;
-  if (avgAir < TARGET_CUPS * 0.625)
-    tipsList.push(`💧 Rata-rata hanya ${avgAir.toFixed(1)} gelas/hari — jauh dari target 8 gelas. Perbanyak minum air.`);
-  else if (avgAir < TARGET_CUPS * 0.9)
-    tipsList.push(`💧 Rata-rata ${avgAir.toFixed(1)} gelas/hari. Tambah ${(TARGET_CUPS - avgAir).toFixed(1)} gelas lagi untuk mencapai target.`);
+  const tipsList = [];
 
-  // Nutrisi — hitung rata-rata kategori unik per hari
+  // Air (dalam ml)
+  const totalCups = waterData.reduce((s, d) => s + d.cups, 0);
+  const avgMl     = Math.round((totalCups * ML_PER_CUP) / 7);
+  if (avgMl < TARGET_ML * 0.625)
+    tipsList.push(`💧 Rata-rata hanya ${avgMl} ml/hari — jauh dari target 2000 ml. Perbanyak minum air.`);
+  else if (avgMl < TARGET_ML * 0.9)
+    tipsList.push(`💧 Rata-rata ${avgMl} ml/hari. Tambah ${TARGET_ML - avgMl} ml lagi untuk mencapai target 2000 ml/hari.`);
+
+  // Nutrisi
   let katTotal = 0;
-  const sayurCount = { hari: 0, total: 0 };
-  const buahCount  = { hari: 0, total: 0 };
+  let sayurHari = 0, buahHari = 0;
   DAY_NAMES.forEach(day => {
     const items = foodHistory[day] || [];
     const cats  = new Set(items.map(it => it.cat));
     katTotal += cats.size;
-    if (cats.has('sayur')) sayurCount.hari++;
-    if (cats.has('buah'))  buahCount.hari++;
-    sayurCount.total++;
-    buahCount.total++;
+    if (cats.has('sayur')) sayurHari++;
+    if (cats.has('buah'))  buahHari++;
   });
   const avgKat = katTotal / 7;
   if (avgKat < 3)
     tipsList.push(`🥗 Rata-rata hanya ${avgKat.toFixed(1)} kategori makanan/hari. Variasi makan perlu ditingkatkan.`);
-
-  if (sayurCount.hari < 4)
-    tipsList.push(`🥦 Sayuran hanya dikonsumsi ${sayurCount.hari} hari minggu ini. Targetkan ada sayuran setiap makan.`);
-
-  if (buahCount.hari < 4)
-    tipsList.push(`🍓 Buah dikonsumsi hanya ${buahCount.hari} hari minggu ini. Jadikan buah sebagai camilan harian.`);
+  if (sayurHari < 4)
+    tipsList.push(`🥦 Sayuran hanya dikonsumsi ${sayurHari} hari minggu ini. Targetkan ada sayuran setiap makan.`);
+  if (buahHari < 4)
+    tipsList.push(`🍓 Buah dikonsumsi hanya ${buahHari} hari minggu ini. Jadikan buah sebagai camilan harian.`);
 
   // BAB
   const totalBab = babData.reduce((s, d) => s + d.frek, 0);
@@ -249,7 +241,7 @@ function renderTips(skor, waterData, babData, foodHistory) {
   else if (avgBab > 3)
     tipsList.push(`⚠️ Rata-rata BAB ${avgBab.toFixed(1)}x/hari — terlalu sering. Perhatikan kebersihan makanan.`);
 
-  // Tekstur BAB
+  // Tekstur
   const texKeras  = babData.filter(d => d.tipe === "Keras").length;
   const texLembek = babData.filter(d => d.tipe === "Lembek").length;
   const totTex    = Math.max(babData.length, 1);
@@ -258,10 +250,9 @@ function renderTips(skor, waterData, babData, foodHistory) {
   if (texLembek / totTex > 0.3)
     tipsList.push(`⚠️ ${Math.round(texLembek/totTex*100)}% BAB lembek — hindari makanan pedas dan berminyak.`);
 
-  if (tipsList.length === 0)
-    tipsEl.textContent = "✅ Semua indikator kesehatan minggu ini baik! Pertahankan pola makan dan hidrasi.";
-  else
-    tipsEl.textContent = tipsList[0]; // tampilkan tips paling penting
+  tipsEl.textContent = tipsList.length === 0
+    ? "✅ Semua indikator kesehatan minggu ini baik! Pertahankan pola makan dan hidrasi."
+    : tipsList[0];
 }
 
 // ── Init ──
@@ -293,6 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
       this.classList.add("active");
     });
   });
+
   document.getElementById('profileBtn')?.addEventListener('click', (e) => {
     e.preventDefault();
     window.location.href = 'profil.html';

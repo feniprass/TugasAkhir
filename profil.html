@@ -9,7 +9,7 @@
 <body>
 <div class="container">
 
-  <!-- SIDEBAR -->
+  <!-- SIDEBAR (tidak diubah) -->
   <aside class="sidebar">
     <div class="logo">
       <img src="icon/icon_usus.png" class="logo-icon" alt="logo" />
@@ -62,8 +62,6 @@
 
   <!-- MAIN CONTENT -->
   <main class="main-content">
-
-    <!-- HEADER -->
     <header class="header">
       <div class="header-left">
         <img src="icon/icon_profile.png" class="header-icon" alt="profil"/>
@@ -71,26 +69,24 @@
       </div>
     </header>
 
-    <!-- PROFIL CONTENT -->
     <div class="profil-content">
 
-      <!-- KARTU PROFIL UTAMA -->
+      <!-- HERO CARD -->
       <div class="profil-hero">
         <div class="avatar-wrap">
           <div class="avatar" id="avatarCircle">
             <span id="avatarInitial">?</span>
           </div>
-          <div class="avatar-badge">👤</div>
         </div>
         <div class="hero-info">
           <h2 id="namaLengkap">—</h2>
           <p id="emailProfil" class="hero-email">—</p>
-          <span class="hero-tag">Pengguna BABuddy</span>
+          <span class="hero-tag">✦ Pengguna BABuddy</span>
         </div>
         <button class="btn-edit" id="btnEdit">✏️ Edit Profil</button>
       </div>
 
-      <!-- GRID INFO + STATISTIK -->
+      <!-- 2 KARTU BAWAH -->
       <div class="profil-grid">
 
         <!-- INFO AKUN -->
@@ -113,38 +109,8 @@
               <span class="info-value" id="infoEmail">—</span>
             </div>
             <div class="info-row">
-              <span class="info-label">Bergabung</span>
+              <span class="info-label">Bergabung Sejak</span>
               <span class="info-value" id="infoBergabung">—</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- STATISTIK MINGGU INI -->
-        <div class="profil-card">
-          <div class="card-title-row">
-            <span class="card-icon-label">📊</span>
-            <h3>Statistik Minggu Ini</h3>
-          </div>
-          <div class="stat-grid">
-            <div class="stat-item stat-blue">
-              <div class="stat-val" id="statAir">—</div>
-              <div class="stat-label">Rata-rata Air</div>
-              <div class="stat-sub">gelas/hari</div>
-            </div>
-            <div class="stat-item stat-orange">
-              <div class="stat-val" id="statBab">—</div>
-              <div class="stat-label">Rata-rata BAB</div>
-              <div class="stat-sub">x/hari</div>
-            </div>
-            <div class="stat-item stat-green">
-              <div class="stat-val" id="statNutrisi">—</div>
-              <div class="stat-label">Rata-rata Nutrisi</div>
-              <div class="stat-sub">kategori/hari</div>
-            </div>
-            <div class="stat-item stat-brown">
-              <div class="stat-val" id="statHariAktif">—</div>
-              <div class="stat-label">Hari Aktif</div>
-              <div class="stat-sub">dari 7 hari</div>
             </div>
           </div>
         </div>
@@ -157,11 +123,11 @@
           </div>
           <div class="form-group">
             <label>Kata Sandi Lama</label>
-            <input type="password" id="passLama" placeholder="Masukkan kata sandi lama" />
+            <input type="password" id="passLama" placeholder="Kata sandi lama" />
           </div>
           <div class="form-group">
             <label>Kata Sandi Baru</label>
-            <input type="password" id="passBaru" placeholder="Masukkan kata sandi baru" />
+            <input type="password" id="passBaru" placeholder="Kata sandi baru" />
           </div>
           <div class="form-group">
             <label>Konfirmasi Kata Sandi Baru</label>
@@ -179,7 +145,7 @@
 <!-- MODAL EDIT PROFIL -->
 <div class="modal-overlay" id="modalEdit">
   <div class="modal">
-    <h3>Edit Profil</h3>
+    <h3>✏️ Edit Profil</h3>
     <div class="form-group">
       <label>Nama Depan</label>
       <input type="text" id="editNamaDepan" placeholder="Nama depan" />

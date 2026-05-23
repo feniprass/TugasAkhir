@@ -1,10 +1,7 @@
-// =========================================
-//  BABuddy - Water Tracker
-// =========================================
 
-const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+const DAY_NAMES   = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 const TARGET_CUPS = 8;
-const LITER_PER_CUP = 0.25;
+const ML_PER_CUP  = 250;
 
 // =========================================
 //  RESET OTOMATIS SETIAP MINGGU BARU
@@ -16,11 +13,10 @@ function checkWeeklyReset() {
     startOfWeek.setHours(0, 0, 0, 0);
     startOfWeek.setDate(now.getDate() - now.getDay());
 
-    const lastReset = localStorage.getItem("waterWeekStart");
+    const lastReset     = localStorage.getItem("waterWeekStart");
     const lastResetTime = lastReset ? parseInt(lastReset) : 0;
 
     if (startOfWeek.getTime() > lastResetTime) {
-      // Simpan data minggu lalu ke waterHistory sebelum reset
       const oldData = JSON.parse(localStorage.getItem("waterData") || "[]");
       if (oldData.length > 0 && lastResetTime > 0) {
         saveToHistory(oldData, lastResetTime);
@@ -33,10 +29,10 @@ function checkWeeklyReset() {
 
 function saveToHistory(data, weekStartTime) {
   try {
-    const hist = JSON.parse(localStorage.getItem("waterHistory") || "[]");
+    const hist      = JSON.parse(localStorage.getItem("waterHistory") || "[]");
     const weekStart = new Date(weekStartTime);
-    const MONTHS = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
-    const label = weekStart.getDate() + " " + MONTHS[weekStart.getMonth()] + " " + weekStart.getFullYear();
+    const MONTHS    = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+    const label     = weekStart.getDate() + " " + MONTHS[weekStart.getMonth()] + " " + weekStart.getFullYear();
     hist.push({ weekLabel: label, weekStart: weekStartTime, data });
     if (hist.length > 4) hist.shift();
     localStorage.setItem("waterHistory", JSON.stringify(hist));
@@ -48,7 +44,7 @@ function loadData() {
   try {
     const s = localStorage.getItem("waterData");
     if (!s) return [];
-    const parsed = JSON.parse(s);
+    const parsed     = JSON.parse(s);
     const englishDays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     if (parsed.some(d => englishDays.includes(d.hari))) {
       localStorage.removeItem("waterData");
@@ -85,7 +81,7 @@ function renderLog() {
       <span class="log-day" style="color:${isToday ? '#C08F3A' : '#D4A04C'}">
         ${hari}${isToday ? ' <span style="background:#D4A04C;color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;margin-left:6px;">hari ini</span>' : ''}
       </span>
-      <span class="log-cups">${cups > 0 ? cups + ' gelas' : '-'}</span>
+      <span class="log-cups">${cups > 0 ? (cups * ML_PER_CUP) + ' ml' : '-'}</span>
     `;
     list.appendChild(div);
   });
@@ -98,20 +94,20 @@ function updateCard() {
   const t     = today();
   const found = waterData.find(d => d.hari === t);
   const cups  = found ? found.cups : 0;
-  const liters = (cups * LITER_PER_CUP).toFixed(1);
-  const pct    = Math.min((cups / TARGET_CUPS) * 100, 100);
+  const ml    = cups * ML_PER_CUP;
+  const pct   = Math.min((cups / TARGET_CUPS) * 100, 100);
 
   const fill = document.getElementById("progressFill");
   if (fill) fill.style.width = pct + "%";
 
   const amount = document.getElementById("waterAmount");
-  if (amount) amount.textContent = liters + " liter/hari";
+  if (amount) amount.textContent = ml + " ml/hari";
 
   const status = document.getElementById("waterStatusText");
   if (!status) return;
-  if (cups >= TARGET_CUPS) status.textContent = "Tercapai - " + cups + " gelas";
-  else if (cups >= 5)      status.textContent = "Cukup - " + cups + " gelas";
-  else if (cups >= 1)      status.textContent = "Kurang - " + cups + " gelas";
+  if (cups >= TARGET_CUPS) status.textContent = "Tercapai - " + ml + " ml";
+  else if (cups >= 5)      status.textContent = "Cukup - " + ml + " ml";
+  else if (cups >= 1)      status.textContent = "Kurang - " + ml + " ml";
   else                     status.textContent = "Belum ada data";
 }
 
@@ -148,7 +144,7 @@ function simpanAir() {
   saveData();
   renderLog();
   closeModal("modalTambah");
-  showToast("✅ " + hari + " tersimpan: " + cups + " gelas");
+  showToast("✅ " + hari + " tersimpan: " + (cups * ML_PER_CUP) + " ml");
 }
 
 // ── Hapus ──
@@ -201,5 +197,10 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll(".menu-item").forEach(i => i.classList.remove("active"));
       this.classList.add("active");
     });
+  });
+
+  document.getElementById('profileBtn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = 'profil.html';
   });
 });

@@ -1,7 +1,5 @@
 // =========================================
 //  BABuddy - Food Tracker Script
-//  Input langsung masuk riwayat mingguan
-//  Card tambah makanan selalu kosong
 // =========================================
 
 const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -60,7 +58,6 @@ let editHistoryIndex = null;
 
 // =========================================
 //  RENDER CARD — selalu tampilkan kosong
-//  (card hanya sebagai tombol tambah)
 // =========================================
 function renderAll() {
   Object.keys(CATEGORIES).forEach(cat => {
