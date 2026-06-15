@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>BABuddy – Diagnosis Bulanan</title>
+  <title>BABuddy – Rekapan Analisa Mingguan</title>
   <link rel="stylesheet" href="diagnosis.css"/>
 </head>
 <body>
@@ -69,7 +69,7 @@
     <header class="header">
       <div class="header-left">
         <img src="icon/icon_analisis.png" class="header-icon" alt="diagnosis"/>
-        <h1>Diagnosis Bulanan</h1>
+        <h1>Ringkasan Kesehatan Mingguan</h1>
       </div>
       <div class="header-right">
       </div>
@@ -149,29 +149,11 @@
       <!-- GRID BAWAH 3 KOLOM -->
       <div class="bottom-grid">
 
-        <!-- KIRI: Tren Mingguan -->
-        <div class="diag-card tren-card">
-          <h3>📆 Tren Mingguan</h3>
-          <p class="card-subtitle">Rata-rata per minggu dalam sebulan</p>
-          <div class="week-table">
-            <div class="week-head">
-              <span>Minggu</span>
-              <span>💧 Air</span>
-              <span>🥗 Nutrisi</span>
-              <span>💩 BAB</span>
-              <span>Skor</span>
-            </div>
-            <div id="week-rows"></div>
-          </div>
-          <p class="chart-label">Skor per Minggu</p>
-          <div class="bar-chart" id="bar-chart"></div>
-        </div>
-
         <!-- TENGAH: Makanan + Tekstur -->
         <div class="mid-col">
           <div class="diag-card">
             <h3>🍽️ Rekap Kategori Makanan</h3>
-            <p class="card-subtitle">Total hari terpenuhi selama sebulan</p>
+            <p class="card-subtitle">Total hari terpenuhi selama seminggu</p>
             <div id="food-list"></div>
           </div>
           <div class="diag-card">
@@ -181,17 +163,20 @@
         </div>
 
         <!-- KANAN: Hasil Diagnosis + Saran -->
-        <div class="right-col">
-          <div class="diag-card">
-            <h3>🔍 Hasil Diagnosis</h3>
-            <div id="diagnosis-list"></div>
-          </div>
-          <div class="diag-card note-card">
-            <img src="icon/icon_notifikasi.png" class="note-img" alt="saran"/>
-            <h3>Saran Dokter Virtual</h3>
-            <div id="saran-list" class="note-text"></div>
-          </div>
-        </div>
+ <div class="right-col">
+
+  <div class="diag-card diagnosis-card">
+    <h3>🔍 Hasil Diagnosis</h3>
+    <div id="diagnosis-list"></div>
+  </div>
+
+  <div class="diag-card note-card">
+    <img src="icon/icon_notifikasi.png" class="note-img" alt="saran"/>
+    <h3>Notebuddy</h3>
+    <div id="saran-list" class="note-text"></div>
+  </div>
+
+</div>
 
       </div><!-- /bottom-grid -->
     </div><!-- /diag-content -->

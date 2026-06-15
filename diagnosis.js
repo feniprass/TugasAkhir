@@ -114,8 +114,7 @@ function hitungData() {
     hari: allDays.filter(h=>(historyObj[h]||[]).some(i=>i.cat===key)).length
   }));
 
-  const now       = new Date();
-  const totalHari = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  const totalHari = 7;
 
   return {
     totalSkor, mingguScores, weeks,
@@ -165,7 +164,7 @@ function renderFood(data) {
   list.innerHTML = '';
 
   const now       = new Date();
-  const totalHari = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  const totalHari = 7;
   const t1 = Math.round(totalHari*0.4);
   const t2 = Math.round(totalHari*0.75);
 
