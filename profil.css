@@ -7,16 +7,14 @@
 body {
   font-family      : 'Arial', sans-serif;
   background-color : #f5f5f5;
-  overflow         : hidden;
-  height           : 100vh;
+  min-height       : 100vh;
   width            : 100vw;
 }
 
 .container {
-  display  : flex;
-  height   : 100vh;
-  width    : 100vw;
-  overflow : hidden;
+  display    : flex;
+  min-height : 100vh;
+  width      : 100vw;
 }
 
 /* ==================== SIDEBAR (tidak diubah) ==================== */
@@ -29,6 +27,8 @@ body {
   height         : 100vh;
   overflow-y     : auto;
   flex-shrink    : 0;
+  position       : sticky;
+  top            : 0;
 }
 
 .logo { display:flex; align-items:center; gap:10px; margin-bottom:30px; }
@@ -54,22 +54,24 @@ body {
 
 /* ==================== MAIN ==================== */
 .main-content {
-  flex           : 1;
-  background     : #FFCB4C;
-  height         : 100vh;
-  overflow       : hidden;
-  display        : flex;
-  flex-direction : column;
+  flex             : 1;
+  background-color : #FFCB4C;
+  min-height       : 100vh;
+  display          : flex;
+  flex-direction   : column;
 }
 
 /* ==================== HEADER ==================== */
 .header {
-  background  : #FFCB4C;
-  padding     : 15px 30px;
-  display     : flex;
-  align-items : center;
-  height      : 70px;
-  flex-shrink : 0;
+  background-color : #FFCB4C;
+  padding          : 15px 30px;
+  display          : flex;
+  align-items      : center;
+  height           : 70px;
+  flex-shrink      : 0;
+  position         : sticky;
+  top              : 0;
+  z-index          : 10;
 }
 
 .header-left { display:flex; align-items:center; gap:10px; }
@@ -80,7 +82,6 @@ body {
 .profil-content {
   flex           : 1;
   padding        : 24px 30px 30px;
-  overflow-y     : auto;
   display        : flex;
   flex-direction : column;
   gap            : 20px;
@@ -361,12 +362,115 @@ body {
 .modal-actions button:hover { opacity:0.85; }
 
 /* ==================== RESPONSIVE ==================== */
-@media (max-width: 900px) {
-  .profil-grid { grid-template-columns:1fr; }
+@media (max-width: 1100px) {
+  .profil-grid { grid-template-columns: 1fr; }
 }
+
 @media (max-width: 768px) {
-  .sidebar { width:70px; padding:15px 8px; }
-  .logo-text, .menu-text, .menu-title { display:none; }
-  .menu-item { justify-content:center; }
-  .profil-hero { flex-direction:column; text-align:center; }
+  body { overflow-x: hidden; }
+
+  .container { flex-direction: column; }
+
+  /* Sidebar jadi horizontal sticky bar di atas */
+  .sidebar {
+    width          : 100%;
+    height         : auto;
+    min-height     : unset;
+    position       : sticky;
+    top            : 0;
+    z-index        : 100;
+    flex-direction : row;
+    align-items    : center;
+    padding        : 10px 12px;
+    overflow-x     : auto;
+    overflow-y     : hidden;
+    gap            : 8px;
+  }
+
+  .logo {
+    margin-bottom : 0;
+    margin-right  : 10px;
+    flex-shrink   : 0;
+  }
+
+  .logo-text,
+  .menu-title { display: none; }
+
+  .menu-section {
+    margin-bottom : 0;
+    flex          : unset;
+    flex-shrink   : 0;
+  }
+
+  .menu {
+    flex-direction : row;
+    gap            : 4px;
+  }
+
+  .menu-item {
+    justify-content : center;
+    padding         : 8px 10px;
+    flex-shrink     : 0;
+  }
+
+  .menu-text { display: none; }
+
+  .bottom-menu {
+    margin-top     : 0;
+    margin-bottom  : 0;
+    margin-left    : auto;
+    display        : flex;
+    flex-direction : row;
+    gap            : 4px;
+    flex-shrink    : 0;
+  }
+
+  /* Main content — biarkan scroll normal */
+  .main-content {
+    height     : auto;
+    overflow   : visible;
+    min-height : unset;
+    flex       : 1;
+  }
+
+  /* Header */
+  .header {
+    position : static;
+    padding  : 12px 15px;
+    height   : auto;
+  }
+
+  /* Profil content — scroll di level halaman */
+  .profil-content {
+    overflow-y     : visible;
+    padding        : 15px;
+    padding-bottom : 40px;
+    gap            : 14px;
+  }
+
+  /* Hero card: susun vertikal, teks center */
+  .profil-hero {
+    flex-direction : column;
+    align-items    : center;
+    text-align     : center;
+    padding        : 24px 20px;
+    gap            : 16px;
+  }
+
+  /* Tombol edit full width di mobile */
+  .btn-edit {
+    width : 100%;
+  }
+
+  /* Grid profil: 1 kolom */
+  .profil-grid { grid-template-columns: 1fr; }
+
+  /* Kartu padding lebih kecil */
+  .profil-card { padding: 18px 16px; }
+
+  /* Modal lebih kecil di HP */
+  .modal {
+    width   : calc(100% - 32px);
+    padding : 24px 20px;
+  }
 }

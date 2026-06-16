@@ -3,16 +3,14 @@
 body {
   font-family: 'Arial', sans-serif;
   background: #f5f5f5;
-  overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
 }
 
 .container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
-  overflow: hidden;
 }
 
 /* ==================== SIDEBAR ==================== */
@@ -26,6 +24,8 @@ body {
   height: 100vh;
   overflow-y: auto;
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
 }
 
 .logo {
@@ -79,8 +79,7 @@ body {
 .main-content {
   flex: 1;
   background: #FFCB4C;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -94,6 +93,9 @@ body {
   align-items: center;
   height: 60px;
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .header-left { display: flex; align-items: center; gap: 8px; }
@@ -151,8 +153,7 @@ body {
 /* ==================== CONTENT ==================== */
 .analisis-content {
   flex: 1;
-  padding: 10px 22px 18px;
-  overflow-y: auto;
+  padding: 10px 22px 40px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -200,8 +201,6 @@ body {
   display: grid;
   grid-template-columns: 220px 1fr 180px;
   gap: 12px;
-  flex: 1;
-  min-height: 0;
 }
 
 .col-left {
@@ -428,4 +427,136 @@ body {
   color: #7a5500;
   line-height: 1.5;
   font-weight: 500;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: unset;
+    height: auto;
+    min-height: unset;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 8px;
+  }
+
+  .logo {
+    margin-bottom: 0;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  .logo-text,
+  .menu-title {
+    display: none;
+  }
+
+  .menu-section {
+    margin-bottom: 0;
+    flex: unset;
+    flex-shrink: 0;
+  }
+
+  .menu {
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .menu-item {
+    justify-content: center;
+    padding: 8px 10px;
+    flex-shrink: 0;
+  }
+
+  .menu-text {
+    display: none;
+  }
+
+  .bottom-menu {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .main-content {
+    min-height: unset;
+    flex: 1;
+  }
+
+  .header {
+    position: static;
+    padding: 10px 15px;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .week-selector {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .analisis-content {
+    padding: 12px 15px 40px;
+    gap: 12px;
+  }
+
+  /* Skor card */
+  .skor-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .skor-badge {
+    align-self: flex-end;
+    font-size: 13px;
+    padding: 8px 20px;
+  }
+
+  /* Grid jadi 1 kolom */
+  .analisis-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .col-left {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .col-mid {
+    overflow: visible;
+  }
+
+  .kat-card {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .col-right {
+    gap: 10px;
+  }
+
+  .tekstur-card {
+    flex: unset;
+  }
 }

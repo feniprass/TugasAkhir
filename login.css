@@ -15,7 +15,7 @@ body {
     min-height: 100vh;
 }
 
-/* Left Side */
+/* ==================== LEFT SIDE ==================== */
 .left-side {
     flex: 1;
     background: linear-gradient(180deg, #FFCB4C 0%, #f4d56f 100%);
@@ -60,7 +60,7 @@ body {
     gap: 20px;
 }
 
-/* Right Side */
+/* ==================== RIGHT SIDE ==================== */
 .right-side {
     flex: 1;
     background-color: #F9E19F;
@@ -88,7 +88,7 @@ h1 {
     margin-bottom: 40px;
 }
 
-/* Form Styles */
+/* ==================== FORM ==================== */
 .form-group {
     margin-bottom: 25px;
 }
@@ -122,7 +122,7 @@ h1 {
     color: #999;
 }
 
-/* Password Field */
+/* ==================== PASSWORD ==================== */
 .password-wrapper {
     position: relative;
 }
@@ -131,7 +131,6 @@ h1 {
     padding-right: 50px;
 }
 
-/* Sembunyikan icon mata bawaan browser */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear,
 input[type="password"]::-webkit-credentials-auto-fill-button,
@@ -181,7 +180,7 @@ input::-webkit-credentials-auto-fill-button {
     text-decoration: underline;
 }
 
-/* Login Button */
+/* ==================== BUTTON ==================== */
 .btn-login {
     width: 100%;
     padding: 16px;
@@ -206,7 +205,7 @@ input::-webkit-credentials-auto-fill-button {
     transform: translateY(0);
 }
 
-/* Register Link */
+/* ==================== REGISTER LINK ==================== */
 .register-link {
     text-align: center;
     font-size: 14px;
@@ -224,28 +223,158 @@ input::-webkit-credentials-auto-fill-button {
     text-decoration: underline;
 }
 
+/* ==================== RESPONSIVE ==================== */
+
+/* Tablet landscape */
 @media (max-width: 1024px) {
-    .container { flex-direction: column; }
-    .left-side { min-height: 35vh; padding: 30px; }
-    .logo { position: static; margin-bottom: 20px; }
-    .right-side { padding: 40px 30px; }
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side {
+        min-height: 30vh;
+        padding: 30px;
+        justify-content: center;
+    }
+
+    .logo {
+        position: static;
+        margin-bottom: 16px;
+        justify-content: center;
+    }
+
+    .logo_babuddy {
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .right-side {
+        flex: 1;
+        padding: 40px 30px;
+        align-items: flex-start;
+        padding-top: 40px;
+    }
 }
 
+/* Mobile */
 @media (max-width: 768px) {
-    .left-side { min-height: 30vh; padding: 20px; }
-    .logo-text { font-size: 24px; }
-    .right-side { padding: 30px 20px; }
-    h1 { font-size: 28px; }
-    .subtitle { font-size: 14px; }
-    .login-container { max-width: 100%; }
+    body {
+        overflow-x: hidden;
+    }
+
+    .container {
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .left-side {
+        min-height: 22vh;
+        padding: 20px 16px;
+        flex-shrink: 0;
+    }
+
+    .logo {
+        position: static;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .logo_usus {
+        height: 22px;
+    }
+
+    .logo-text {
+        font-size: 22px;
+    }
+
+    .logo_babuddy {
+        max-width: 140px;
+        max-height: 140px;
+    }
+
+    .illustration {
+        gap: 12px;
+    }
+
+    .right-side {
+        flex: 1;
+        padding: 28px 20px 40px;
+        align-items: flex-start;
+    }
+
+    .login-container {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        margin-bottom: 28px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group input {
+        padding: 13px 16px;
+        font-size: 16px; /* jangan kurang 16px — cegah auto-zoom di iOS */
+    }
+
+    .btn-login {
+        padding: 15px;
+        font-size: 16px;
+    }
 }
 
+/* Mobile kecil */
 @media (max-width: 480px) {
-    .left-side { min-height: 25vh; padding: 15px; }
-    .logo { gap: 8px; }
-    .logo-text { font-size: 20px; }
-    .right-side { padding: 25px 15px; }
-    h1 { font-size: 24px; }
-    .form-group input { padding: 12px 15px; font-size: 14px; }
-    .btn-login { padding: 14px; font-size: 16px; }
+    .left-side {
+        min-height: 18vh;
+        padding: 14px 12px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+    }
+
+    .logo_usus {
+        height: 18px;
+    }
+
+    .logo_babuddy {
+        max-width: 110px;
+        max-height: 110px;
+    }
+
+    .right-side {
+        padding: 22px 16px 36px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+        margin-bottom: 22px;
+    }
+
+    .form-group input {
+        padding: 12px 14px;
+        font-size: 16px; /* tetap 16px — cegah auto-zoom iOS */
+    }
+
+    .btn-login {
+        padding: 14px;
+        font-size: 15px;
+    }
+
+    .register-link {
+        font-size: 13px;
+    }
 }
