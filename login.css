@@ -15,7 +15,7 @@ body {
     min-height: 100vh;
 }
 
-/* ==================== LEFT SIDE ==================== */
+/* Left Siide */
 .left-side {
     flex: 1;
     background: linear-gradient(180deg, #FFCB4C 0%, #f4d56f 100%);
@@ -60,7 +60,7 @@ body {
     gap: 20px;
 }
 
-/* ==================== RIGHT SIDE ==================== */
+/* Right Side*/
 .right-side {
     flex: 1;
     background-color: #F9E19F;
@@ -88,7 +88,7 @@ h1 {
     margin-bottom: 40px;
 }
 
-/* ==================== FORM ==================== */
+/* Form */
 .form-group {
     margin-bottom: 25px;
 }
@@ -122,7 +122,7 @@ h1 {
     color: #999;
 }
 
-/* ==================== PASSWORD ==================== */
+/* Password*/
 .password-wrapper {
     position: relative;
 }
@@ -180,7 +180,7 @@ input::-webkit-credentials-auto-fill-button {
     text-decoration: underline;
 }
 
-/* ==================== BUTTON ==================== */
+/* Button */
 .btn-login {
     width: 100%;
     padding: 16px;
@@ -205,7 +205,7 @@ input::-webkit-credentials-auto-fill-button {
     transform: translateY(0);
 }
 
-/* ==================== REGISTER LINK ==================== */
+/* Register Link */
 .register-link {
     text-align: center;
     font-size: 14px;
@@ -223,7 +223,7 @@ input::-webkit-credentials-auto-fill-button {
     text-decoration: underline;
 }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 
 /* Tablet landscape */
 @media (max-width: 1024px) {
@@ -322,7 +322,7 @@ input::-webkit-credentials-auto-fill-button {
 
     .form-group input {
         padding: 13px 16px;
-        font-size: 16px; /* jangan kurang 16px — cegah auto-zoom di iOS */
+        font-size: 16px;
     }
 
     .btn-login {
@@ -366,7 +366,7 @@ input::-webkit-credentials-auto-fill-button {
 
     .form-group input {
         padding: 12px 14px;
-        font-size: 16px; /* tetap 16px — cegah auto-zoom iOS */
+        font-size: 16px;
     }
 
     .btn-login {

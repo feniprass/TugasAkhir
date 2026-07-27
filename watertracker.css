@@ -17,7 +17,7 @@ body {
     width: 100vw;
 }
 
-/* ==================== SIDEBAR ==================== */
+/* Sidebar */
 .sidebar {
     width: 250px;
     background: #F9E19F;
@@ -107,7 +107,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* ==================== MAIN CONTENT ==================== */
+/* Main Content */
 .main-content {
     flex: 1;
     background-color: #FFCB4C;
@@ -200,7 +200,7 @@ body {
     object-fit: contain;
 }
 
-/* ==================== WATER CONTENT ==================== */
+/* Water Content */
 .water-content {
     flex: 1;
     padding: 30px;
@@ -210,7 +210,7 @@ body {
     padding-bottom: 40px;
 }
 
-/* ==================== WATER CARD ==================== */
+/* Water Card */
 .water-card {
     background-color: #fff;
     border-radius: 20px;
@@ -326,7 +326,7 @@ body {
     line-height: 1.3;
 }
 
-/* ==================== WATER LOG ==================== */
+/* Water Log */
 .water-log {
     background-color: #fff;
     border-radius: 20px;
@@ -368,7 +368,7 @@ body {
     color: #666;
 }
 
-/* ==================== MODAL ==================== */
+/* MOdal */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -444,7 +444,7 @@ body {
 
 .modal-actions button:hover { opacity: 0.85; }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 @media (max-width: 1024px) {
     .water-card { flex-direction: column; text-align: center; }
     .water-actions { justify-content: center; }

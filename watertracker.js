@@ -3,9 +3,6 @@ const DAY_NAMES   = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 const TARGET_CUPS = 8;
 const ML_PER_CUP  = 250;
 
-// =========================================
-//  RESET OTOMATIS SETIAP MINGGU BARU
-// =========================================
 function checkWeeklyReset() {
   try {
     const now = new Date();
@@ -39,7 +36,7 @@ function saveToHistory(data, weekStartTime) {
   } catch {}
 }
 
-// ── Data ──
+// Data
 function loadData() {
   try {
     const s = localStorage.getItem("waterData");
@@ -62,7 +59,7 @@ let waterData = [];
 
 function today() { return DAY_NAMES[new Date().getDay()]; }
 
-// ── Render log ──
+// Render log
 function renderLog() {
   const list = document.getElementById("waterLogList");
   if (!list) return;
@@ -89,7 +86,7 @@ function renderLog() {
   updateCard();
 }
 
-// ── Update card ──
+// Update card
 function updateCard() {
   const t     = today();
   const found = waterData.find(d => d.hari === t);
@@ -115,7 +112,7 @@ function updateCard() {
 function openModal(id)  { document.getElementById(id)?.classList.add("active"); }
 function closeModal(id) { document.getElementById(id)?.classList.remove("active"); }
 
-// ── Tambah ──
+// Tambah 
 function handleTambah() {
   const t = today();
   const displayEl = document.getElementById("inputHariDisplay");
@@ -128,7 +125,7 @@ function handleTambah() {
   openModal("modalTambah");
 }
 
-// ── Simpan ──
+// Simpan
 function simpanAir() {
   const hariEl = document.getElementById("inputHari");
   const cupsEl = document.getElementById("inputCups");
@@ -147,7 +144,7 @@ function simpanAir() {
   showToast("✅ " + hari + " tersimpan: " + (cups * ML_PER_CUP) + " ml");
 }
 
-// ── Hapus ──
+// Hapus
 function handleHapus() {
   const t   = today();
   const idx = waterData.findIndex(d => d.hari === t);
@@ -161,7 +158,7 @@ function handleHapus() {
   }
 }
 
-// ── Toast ──
+// Toast
 function showToast(msg) {
   let t = document.getElementById("wt-toast");
   if (!t) {
@@ -178,7 +175,7 @@ function showToast(msg) {
   t._t = setTimeout(() => { t.style.opacity = "0"; }, 2500);
 }
 
-// ── Init ──
+// Init
 document.addEventListener("DOMContentLoaded", () => {
   checkWeeklyReset();
   waterData = loadData();

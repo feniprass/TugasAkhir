@@ -133,7 +133,7 @@ function renderKategori(foodHistory) {
   });
 }
 
-// ── Render Tekstur BAB ──
+// Render Tekstur BAB 
 function renderTekstur(babData) {
   const list = document.getElementById("teksturList");
   if (!list) return;
@@ -165,7 +165,7 @@ function renderTekstur(babData) {
   });
 }
 
-// ── Hitung Skor ──
+// Hitung Skor
 function hitungSkor(waterData, babData, foodHistory) {
   let airTotal = 0;
   waterData.forEach(d => { airTotal += d.cups; });
@@ -193,7 +193,7 @@ function hitungSkor(waterData, babData, foodHistory) {
   return { total, badge, color };
 }
 
-// ── Render Tips (satuan ml) ──
+//Render Tips (satuan ml)
 function renderTips(skor, waterData, babData, foodHistory) {
   const tipsEl = document.getElementById("tipsText");
   if (!tipsEl) return;
@@ -255,7 +255,7 @@ function renderTips(skor, waterData, babData, foodHistory) {
     : tipsList[0];
 }
 
-// ── Init ──
+// Init
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("weekLabel").textContent = getWeekLabel();
 

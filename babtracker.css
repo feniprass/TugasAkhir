@@ -17,7 +17,7 @@ body {
   width: 100vw;
 }
 
-/* ==================== SIDEBAR ==================== */
+/*Sidebar*/
 .sidebar {
   width: 250px;
   background: #f9e19f;
@@ -107,7 +107,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* ==================== MAIN CONTENT ==================== */
+/* Main Content */
 .main-content {
   flex: 1;
   background-color: #ffcb4c;
@@ -116,7 +116,7 @@ body {
   flex-direction: column;
 }
 
-/* ==================== HEADER ==================== */
+/* Header */
 .header {
   background-color: #ffcb4c;
   padding: 15px 30px;
@@ -154,7 +154,7 @@ body {
   gap: 12px;
 }
 
-/* ==================== BAB CONTENT ==================== */
+/* BAB Content */
 .water-content {
   flex: 1;
   padding: 30px;
@@ -164,8 +164,8 @@ body {
   padding-bottom: 40px;
 }
 
-/* ==================== BAB CARD ==================== */
-.water-card {
+/* BAB Card */
+.bab-card {
   background-color: #fff;
   border-radius: 20px;
   padding: 30px 35px;
@@ -175,25 +175,25 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.water-visual {
+.bab-visual {
   flex-shrink: 0;
 }
 
-.water-glass,
+.bab-progress,
 .poop-img {
   width: 140px;
   height: 140px;
   object-fit: contain;
 }
 
-.water-info {
+.bab-info {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
-.water-info h2 {
+.bab-info h2 {
   font-size: 28px;
   font-weight: bold;
   color: #333;
@@ -219,7 +219,7 @@ body {
   transition: width 0.3s ease;
 }
 
-.water-actions {
+.bab-actions {
   display: flex;
   gap: 12px;
 }
@@ -262,7 +262,7 @@ body {
   transform: translateY(-2px);
 }
 
-.water-status {
+.bab-status {
   flex-shrink: 0;
   background-color: #d4720b;
   color: #fff;
@@ -272,29 +272,29 @@ body {
   min-width: 130px;
 }
 
-.water-status p {
+.bab-status p {
   font-size: 11px;
   font-weight: 600;
   opacity: 0.9;
   margin-bottom: 5px;
 }
 
-.water-status strong {
+.bab-status strong {
   font-size: 13px;
   font-weight: 800;
   display: block;
   line-height: 1.3;
 }
 
-/* ==================== BOWEL LOG ==================== */
-.water-log {
+/* Bowel Log */
+.bab-log {
   background-color: #fff;
   border-radius: 20px;
   padding: 25px 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.water-log h3 {
+.bab-log h3 {
   font-size: 18px;
   font-weight: bold;
   color: #333;
@@ -349,7 +349,7 @@ body {
 .type-hard   { color: #bb3322; }
 .blood-yes   { color: #cc3311; font-weight: 700; }
 
-/* ==================== MODAL ==================== */
+/* Modal */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -425,7 +425,7 @@ body {
 
 .modal-actions button:hover { opacity: 0.85; }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 @media (max-width: 1024px) {
   .water-card { flex-direction: column; text-align: center; }
   .water-actions { justify-content: center; }
@@ -507,39 +507,39 @@ body {
     padding: 12px 15px;
   }
 
-  .water-content {
+  .bab-content {
     padding: 15px;
     padding-bottom: 40px;
     gap: 20px;
   }
 
-  .water-card {
+  .bab-card {
     flex-direction: column;
     text-align: center;
     padding: 20px;
     gap: 20px;
   }
 
-  .water-glass,
+  .bab-progress,
   .poop-img {
     width: 100px;
     height: 100px;
   }
 
-  .water-info h2 {
+  .bab-info h2 {
     font-size: 22px;
   }
 
-  .water-actions {
+  .bab-actions {
     justify-content: center;
     flex-wrap: wrap;
   }
 
-  .water-status {
+  .bab-status {
     width: 100%;
   }
 
-  .water-log {
+  .bab-log {
     padding: 20px;
   }
 

@@ -19,7 +19,7 @@ body {
     /* HAPUS overflow: hidden */
 }
 
-/* ==================== SIDEBAR ==================== */
+/* Sidebar */
 .sidebar {
     width: 250px;
     background: #F9E19F;
@@ -29,7 +29,6 @@ body {
     min-height: 100vh;
     overflow-y: auto;
     flex-shrink: 0;
-    /* Sidebar tetap di kiri, tidak ikut scroll konten di desktop */
     position: sticky;
     top: 0;
     height: 100vh;
@@ -109,12 +108,11 @@ body {
     flex-shrink: 0;
 }
 
-/* MAIN CONTENT */
+/* Main Content */
 .main-content {
     flex: 1;
     background-color: #FFCB4C;
     min-height: 100vh;
-    /* HAPUS height: 100vh & overflow: hidden — biarkan konten menentukan tinggi */
     display: flex;
     flex-direction: column;
 }
@@ -128,7 +126,6 @@ body {
     align-items: center;
     flex-shrink: 0;
     height: 70px;
-    /* Biar header tetap terlihat saat scroll di mobile */
     position: sticky;
     top: 0;
     z-index: 10;
@@ -205,7 +202,6 @@ body {
 /* Dashboard Content */
 .dashboard-content {
     padding: 20px 30px;
-    /* HAPUS overflow: auto & height: calc(...) — biarkan konten scroll natural */
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -304,7 +300,6 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    /* HAPUS flex: 1 & min-height: 0 — biarkan tinggi natural */
 }
 
 .card-statistik,
@@ -313,7 +308,6 @@ body {
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    /* HAPUS overflow: hidden */
     display: flex;
     flex-direction: column;
 }
@@ -370,7 +364,6 @@ body {
     align-items: center;
     margin-top: -30px;
     padding-right: 20px;
-    /* Beri min-height agar chart tidak kempes */
     min-height: 200px;
 }
 
@@ -444,7 +437,7 @@ body {
     margin-top: auto;
 }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 @media (max-width: 1200px) {
     .sidebar {
         width: 220px;
@@ -474,7 +467,6 @@ body {
         flex-direction: column;
     }
 
-    /* Sidebar jadi navbar horizontal di atas */
     .sidebar {
         width: 100%;
         height: auto;
@@ -531,14 +523,13 @@ body {
         flex-shrink: 0;
     }
 
-    /* Main content full width, bisa scroll */
     .main-content {
         min-height: unset;
         flex: 1;
     }
 
     .header {
-        position: static; /* Header tidak sticky lagi di mobile karena sidebar sudah sticky */
+        position: static; 
         padding: 12px 15px;
     }
 

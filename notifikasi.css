@@ -17,7 +17,7 @@ body {
     width: 100vw;
 }
 
-/* ==================== SIDEBAR ==================== */
+/* Sidebar */
 .sidebar {
     width: 250px;
     background: #F9E19F;
@@ -103,7 +103,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* ==================== MAIN CONTENT ==================== */
+/* Main Content */
 .main-content {
     flex: 1;
     background-color: #FFCB4C;
@@ -112,7 +112,7 @@ body {
     flex-direction: column;
 }
 
-/* ==================== HEADER ==================== */
+/* Header */
 .header {
     background-color: #FFCB4C;
     padding: 15px 30px;
@@ -209,7 +209,7 @@ body {
 .header-btn:hover { transform: translateY(-2px); }
 .header-btn img { width: 18px; height: 18px; object-fit: contain; }
 
-/* ==================== NOTIF CONTENT ==================== */
+/* Notif Content */
 .notif-content {
     flex: 1;
     padding: 20px 30px 40px;
@@ -224,7 +224,7 @@ body {
     color: #1a1a1a;
 }
 
-/* ==================== CARD 4 SEHAT 5 SEMPURNA ==================== */
+/* Card 4 sehat 5 sempurna */
 .card-sehat {
     background-color: #fdeea0;
     border-radius: 16px;
@@ -311,7 +311,7 @@ body {
     background: rgba(0,0,0,0.06);
 }
 
-/* ==================== NOTIF LIST ==================== */
+/* Notif List */
 .notif-list {
     display: flex;
     flex-direction: column;
@@ -343,7 +343,7 @@ body {
     line-height: 1.5;
 }
 
-/* ==================== MODAL ==================== */
+/* Modal */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -451,7 +451,7 @@ body {
 
 .modal-actions button:hover { opacity: 0.85; }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 @media (max-width: 768px) {
     body {
         overflow-x: hidden;

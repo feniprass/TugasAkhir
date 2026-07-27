@@ -17,7 +17,7 @@ const KAT_MAP = {
   susu  : { label:'Susu',          icon:'🥛' },
 };
 
-// ── Baca data ──
+// Baca data
 function getWaterData()  { try { return JSON.parse(localStorage.getItem('waterData'))  || []; } catch { return []; } }
 function getBowelData()  { try { return JSON.parse(localStorage.getItem('bowelData'))  || []; } catch { return []; } }
 function getFoodHistory(){ try { return JSON.parse(localStorage.getItem('foodHistory'))|| {}; } catch { return {}; } }
@@ -37,7 +37,7 @@ function getFrekForDay(bowelArr, hari)  { const f=bowelArr.find(d=>d.hari===hari
 function getTipeForDay(bowelArr, hari)  { const f=bowelArr.find(d=>d.hari===hari); return f?(f.tipe||''):''; }
 function getNutForDay(historyObj, hari) { return new Set((historyObj[hari]||[]).map(i=>i.cat)).size; }
 
-// ── Warna / Badge ──
+// Warna / Badge
 function badgeClass(s) { return s>=85?'badge-green':s>=65?'badge-orange':'badge-red'; }
 function getBadge(s) {
   if (s>=85) return {text:'Sangat Baik',      bg:'#4CAF50', color:'#fff'};
@@ -46,8 +46,7 @@ function getBadge(s) {
   return           {text:'Perlu Perhatian',   bg:'#EF5350', color:'#fff'};
 }
 
-// ── Skor per kelompok hari (untuk tren mingguan) ──
-// Logika BAB disamakan dengan analisis.js: hitung hari frek 1-2 & tidak berdarah
+// Skor per kelompok hari (untuk tren mingguan)
 function skorMinggu(hariList, waterArr, bowelArr, historyObj) {
   const airVals = hariList.map(h=>getCupsForDay(waterArr,h));
   const babVals = hariList.map(h=>getFrekForDay(bowelArr,h));
@@ -65,7 +64,7 @@ function skorMinggu(hariList, waterArr, bowelArr, historyObj) {
   const nutTotal = nutVals.reduce((a,b)=>a+b,0);
   const nutSkor  = Math.min(Math.round((nutTotal / (TARGET_NUT * hariList.length)) * 34), 34);
 
-  // BAB skor: hitung hari normal (frek 1-2, tidak berdarah) — sama dengan analisis.js
+  // BAB skor: hitung hari normal
   let babNormal = 0;
   hariList.forEach(h => {
     const entry = bowelArr.find(d => d.hari === h);
@@ -77,7 +76,7 @@ function skorMinggu(hariList, waterArr, bowelArr, historyObj) {
   return { airAvg, nutAvg, babAvg, airSkor, nutSkor, babSkor, total };
 }
 
-// ── Hitung semua data ──
+// Hitung semua data
 function hitungData() {
   const waterArr   = getWaterData();
   const bowelArr   = getBowelData();
@@ -93,7 +92,6 @@ function hitungData() {
 
   const mingguScores = weeks.map(w=>skorMinggu(w,waterArr,bowelArr,historyObj));
 
-  // totalSkor dihitung langsung dari total mingguan — sama dengan analisis.js
   let airTotal = 0;
   waterArr.forEach(d => { airTotal += (d.cups || 0); });
   const airSkorTotal = Math.min(Math.round((airTotal / (TARGET_AIR * 7)) * 33), 33);
@@ -141,7 +139,7 @@ function hitungData() {
   };
 }
 
-// ── Render Tren Mingguan ──
+// Render Tren Mingguan
 function renderTren(data) {
   const rowsEl  = document.getElementById('week-rows');
   const chartEl = document.getElementById('bar-chart');
@@ -174,7 +172,7 @@ function renderTren(data) {
   });
 }
 
-// ── Render Kategori Makanan ──
+// Render Kategori Makanan
 function renderFood(data) {
   const list = document.getElementById('food-list');
   if (!list) return;
@@ -197,7 +195,7 @@ function renderFood(data) {
   });
 }
 
-// ── Render Tekstur BAB ──
+// Render Tekstur BAB
 function renderTexture(texCount) {
   const list = document.getElementById('texture-list');
   if (!list) return;
@@ -221,14 +219,13 @@ function renderTexture(texCount) {
   });
 }
 
-// ── Render Hasil Diagnosis ──
-// Perhitungan disamakan dengan analisis.js: pakai total mingguan, bukan rata-rata
+// Render Hasil Diagnosis
 function renderDiagnosis(d) {
   const list = document.getElementById('diagnosis-list');
   if (!list) return;
   const items = [];
 
-  // ── Hitung ulang pakai logika total mingguan (sama dengan analisis.js) ──
+  // Hitung ulang pakai logika total mingguan
   const totalCups = d.waterArr.reduce((s, r) => s + (r.cups || 0), 0);
   const avgMl     = Math.round((totalCups * ML_PER_CUP) / 7);
 
@@ -243,7 +240,7 @@ function renderDiagnosis(d) {
   const totalBab = d.bowelArr.reduce((s, r) => s + (r.frek || 0), 0);
   const avgBab   = totalBab / 7;
 
-  // totTex dari bowelArr.length (sama dengan analisis.js)
+  // totTex dari bowelArr.length
   const totTex   = Math.max(d.bowelArr.length, 1);
   const texCount = { Normal: 0, Keras: 0, Lembek: 0 };
   d.bowelArr.forEach(r => { if (texCount[r.tipe] !== undefined) texCount[r.tipe]++; });
@@ -359,13 +356,11 @@ function renderDiagnosis(d) {
     </div>`).join('');
 }
 
-// ── Render Tips / Rekomendasi Kesehatan ──
-// Disamakan dengan analisis.js: darah prioritas pertama, threshold & format konsisten
+// Render Tips / Rekomendasi Kesehatan
 function renderTips(d) {
   const el = document.getElementById('saran-list');
   if (!el) return;
 
-  // Darah — prioritas tertinggi, early return (sama dengan analisis.js)
   if (d.bowelArr.some(b => b.darah === 'Berdarah')) {
     el.innerHTML = `<div class="note-item">🚨 Terdeteksi darah pada BAB minggu ini. Segera periksakan ke fasilitas kesehatan terdekat.</div>`;
     return;
@@ -381,7 +376,6 @@ function renderTips(d) {
   else if (avgMl < TARGET_ML * 0.9)
     tips.push(`💧 Rata-rata ${avgMl} ml/hari. Tambah ${TARGET_ML - avgMl} ml lagi untuk mencapai target 2.000 ml/hari.`);
 
-  // Nutrisi, sayur, buah — loop langsung (sama dengan analisis.js)
   let katTotal = 0, sayurHari = 0, buahHari = 0;
   d.allDays.forEach(h => {
     const cats = new Set((d.historyObj[h] || []).map(i => i.cat));
@@ -397,7 +391,6 @@ function renderTips(d) {
   if (buahHari < 4)
     tips.push(`🍓 Buah dikonsumsi hanya ${buahHari} hari minggu ini. Jadikan buah sebagai camilan harian.`);
 
-  // BAB — dari totalBab / 7 (sama dengan analisis.js)
   const totalBab = d.bowelArr.reduce((s, r) => s + (r.frek || 0), 0);
   const avgBab   = totalBab / 7;
   if (avgBab < 0.8)
@@ -405,7 +398,6 @@ function renderTips(d) {
   else if (avgBab > 3)
     tips.push(`⚠️ Rata-rata BAB ${avgBab.toFixed(1)}x/hari — terlalu sering. Perhatikan kebersihan makanan.`);
 
-  // Tekstur — totTex dari bowelArr.length (sama dengan analisis.js)
   const totTex    = Math.max(d.bowelArr.length, 1);
   const texKeras  = d.bowelArr.filter(r => r.tipe === 'Keras').length;
   const texLembek = d.bowelArr.filter(r => r.tipe === 'Lembek').length;
@@ -420,7 +412,7 @@ function renderTips(d) {
   el.innerHTML = tips.map(s => `<div class="note-item">${s}</div>`).join('');
 }
 
-// ── Init ──
+// Init
 function init() {
   const now = new Date();
   setText('bulan-label', `${BULAN_NM[now.getMonth()]} ${now.getFullYear()}`);

@@ -1,8 +1,4 @@
-// =========================================
-//  BABuddy - Profil Script
-// =========================================
-
-// ── Baca akun dari localStorage ──
+// Baca akun dari localStorage
 function getAkun() {
   try {
     const email    = localStorage.getItem('userEmail') || '';
@@ -11,7 +7,7 @@ function getAkun() {
   } catch { return null; }
 }
 
-// ── Render halaman profil ──
+// Render halaman profil
 function renderProfil() {
   const akun = getAkun();
 
@@ -44,7 +40,7 @@ function renderProfil() {
   document.getElementById('infoBergabung').textContent = bergabung;
 }
 
-// ── Modal Edit Profil ──
+// Modal Edit Profil
 function bukaModalEdit() {
   const akun = getAkun();
   document.getElementById('editNamaDepan').value    = akun ? akun.namaDepan    : '';
@@ -72,7 +68,6 @@ function simpanEditProfil() {
     localStorage.setItem('bbAccounts', JSON.stringify(accounts));
   }
 
-  // Update userName di localStorage agar dashboard greeting ikut berubah
   localStorage.setItem('userName', namaDepan);
 
   tutupModal();
@@ -80,7 +75,7 @@ function simpanEditProfil() {
   showToast('✅ Profil berhasil diperbarui!');
 }
 
-// ── Ganti Password ──
+// Ganti Password
 function initGantiPassword() {
   document.getElementById('btnGantiPass').addEventListener('click', () => {
     const passLama       = document.getElementById('passLama').value;
@@ -132,7 +127,7 @@ function initGantiPassword() {
   });
 }
 
-// ── Toast ──
+// Toast
 function showToast(msg) {
   let t = document.getElementById('profil-toast');
   if (!t) {
@@ -150,7 +145,7 @@ function showToast(msg) {
   t._t = setTimeout(() => { t.style.opacity = '0'; }, 2500);
 }
 
-// ── Init ──
+// Init
 document.addEventListener('DOMContentLoaded', () => {
   renderProfil();
   initGantiPassword();

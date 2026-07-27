@@ -231,7 +231,7 @@ body {
     margin-bottom: 16px;
 }
 
-/* ==================== FOOD GRID ==================== */
+/* Food Grid */
 .food-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -245,7 +245,7 @@ body {
 .food-card:nth-child(4) { grid-column: 1; grid-row: 3; }
 .food-card:nth-child(5) { grid-column: 2; grid-row: 3; }
 
-/* ==================== FOOD CARD ==================== */
+/* Food Card */
 .food-card {
     border-radius: 16px;
     padding: 18px 20px;
@@ -369,7 +369,7 @@ body {
     line-height: 1;
 }
 
-/* ==================== MEAL SLOT ==================== */
+/* Meal Shot */
 .history-right {
     display: flex;
     flex-direction: column;
@@ -424,7 +424,7 @@ body {
     transform: translateY(-1px);
 }
 
-/* ==================== MODAL ==================== */
+/* Modal */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -498,7 +498,7 @@ body {
 
 .modal-actions button:hover { opacity: 0.85; }
 
-/* ==================== LABEL SUDAH DIKONSUMSI ==================== */
+/* Label Sudah Dikonsumsi */
 .consumed-label {
     font-size: 11px;
     font-weight: 700;
@@ -506,7 +506,7 @@ body {
     margin-bottom: 4px;
 }
 
-/* ==================== WEEKLY HISTORY ==================== */
+/* Weekly History */
 .weekly-history {
     background-color: #fff;
     border-radius: 20px;
@@ -587,7 +587,7 @@ body {
     font-style: italic;
 }
 
-/* ==================== HISTORY TAG ACTIONS ==================== */
+/* History Tag */
 .history-tag-wrap {
     display: flex;
     align-items: center;
@@ -610,7 +610,7 @@ body {
 .btn-tag-edit:hover { background: rgba(0,0,0,0.08); }
 .btn-tag-del:hover  { background: rgba(220,50,50,0.15); color: #c00; }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 @media (max-width: 1024px) {
     .food-grid { grid-template-columns: 1fr; }
     .food-card:nth-child(n) { grid-column: 1; grid-row: auto; width: 100%; }

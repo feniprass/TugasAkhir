@@ -1,6 +1,3 @@
-/* ============================================================
-   BABuddy – profil.css  |  Desain Modern
-   ============================================================ */
 
 * { margin:0; padding:0; box-sizing:border-box; }
 
@@ -17,7 +14,7 @@ body {
   width      : 100vw;
 }
 
-/* ==================== SIDEBAR (tidak diubah) ==================== */
+/* Sidebar */
 .sidebar {
   width          : 250px;
   background     : #F9E19F;
@@ -52,7 +49,7 @@ body {
 .menu-text { line-height:1.2; }
 .bottom-menu { margin-top:auto; margin-bottom:20px; }
 
-/* ==================== MAIN ==================== */
+/* Main */
 .main-content {
   flex             : 1;
   background-color : #FFCB4C;
@@ -61,7 +58,7 @@ body {
   flex-direction   : column;
 }
 
-/* ==================== HEADER ==================== */
+/* Header */
 .header {
   background-color : #FFCB4C;
   padding          : 15px 30px;
@@ -78,7 +75,7 @@ body {
 .header-icon { width:24px; height:24px; object-fit:contain; }
 .header-left h1 { font-size:20px; font-weight:bold; color:#8B4513; }
 
-/* ==================== PROFIL CONTENT ==================== */
+/* Profil Content */
 .profil-content {
   flex           : 1;
   padding        : 24px 30px 30px;
@@ -91,7 +88,7 @@ body {
 .profil-content::-webkit-scrollbar-track { background:transparent; }
 .profil-content::-webkit-scrollbar-thumb { background:rgba(0,0,0,0.12); border-radius:8px; }
 
-/* ==================== HERO CARD ==================== */
+/* Hero Card */
 .profil-hero {
   background    : linear-gradient(135deg, #5C2D0E 0%, #8B4513 40%, #C17B3F 80%, #D4A04C 100%);
   border-radius : 24px;
@@ -104,7 +101,6 @@ body {
   overflow      : hidden;
 }
 
-/* Dekorasi lingkaran latar */
 .profil-hero::before {
   content       : '';
   position      : absolute;
@@ -196,14 +192,14 @@ body {
   box-shadow  : 0 6px 18px rgba(0,0,0,0.15);
 }
 
-/* ==================== GRID 2 KOLOM ==================== */
+
 .profil-grid {
   display               : grid;
   grid-template-columns : 1fr 1fr;
   gap                   : 18px;
 }
 
-/* ==================== KARTU ==================== */
+/* Card */
 .profil-card {
   background    : #fff;
   border-radius : 20px;
@@ -312,7 +308,7 @@ body {
 .msg-pass.ok    { color: #27760d; }
 .msg-pass.error { color: #E53935; }
 
-/* ==================== MODAL ==================== */
+/* Modal */
 .modal-overlay {
   display         : none;
   position        : fixed;
@@ -361,7 +357,7 @@ body {
 }
 .modal-actions button:hover { opacity:0.85; }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 @media (max-width: 1100px) {
   .profil-grid { grid-template-columns: 1fr; }
 }
@@ -371,7 +367,6 @@ body {
 
   .container { flex-direction: column; }
 
-  /* Sidebar jadi horizontal sticky bar di atas */
   .sidebar {
     width          : 100%;
     height         : auto;
@@ -425,7 +420,6 @@ body {
     flex-shrink    : 0;
   }
 
-  /* Main content — biarkan scroll normal */
   .main-content {
     height     : auto;
     overflow   : visible;
@@ -433,14 +427,12 @@ body {
     flex       : 1;
   }
 
-  /* Header */
   .header {
     position : static;
     padding  : 12px 15px;
     height   : auto;
   }
 
-  /* Profil content — scroll di level halaman */
   .profil-content {
     overflow-y     : visible;
     padding        : 15px;
@@ -448,7 +440,6 @@ body {
     gap            : 14px;
   }
 
-  /* Hero card: susun vertikal, teks center */
   .profil-hero {
     flex-direction : column;
     align-items    : center;
@@ -457,18 +448,14 @@ body {
     gap            : 16px;
   }
 
-  /* Tombol edit full width di mobile */
   .btn-edit {
     width : 100%;
   }
 
-  /* Grid profil: 1 kolom */
   .profil-grid { grid-template-columns: 1fr; }
 
-  /* Kartu padding lebih kecil */
   .profil-card { padding: 18px 16px; }
 
-  /* Modal lebih kecil di HP */
   .modal {
     width   : calc(100% - 32px);
     padding : 24px 20px;

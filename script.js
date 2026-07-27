@@ -1,43 +1,34 @@
-
-
-// Event listener untuk tombol Masuk
 document.getElementById('btn-masuk').addEventListener('click', function() {
     window.location.href = 'login.html';
     console.log('Tombol Masuk diklik - redirect ke login.html');
 });
 
-// Event listener untuk link Masuk
 document.getElementById('masuk-link').addEventListener('click', function(e) {
     e.preventDefault();
     window.location.href = 'login.html';
     console.log('Link Masuk diklik - redirect ke login.html');
 });
 
-// Event listener untuk tombol Daftar
 document.getElementById('btn-daftar').addEventListener('click', function() {
     window.location.href = 'register.html';
     console.log('Tombol Daftar diklik - redirect ke register.html');
 });
 
-// Event listener untuk link Sign Up
 document.getElementById('signup-link').addEventListener('click', function(e) {
     e.preventDefault();
     window.location.href = 'register.html';
     console.log('Link Sign Up diklik - redirect ke register.html');
 });
 
-// Responsive menu handling
 window.addEventListener('resize', function() {
     console.log('Window width: ' + window.innerWidth + 'px');
 });
 
-// Log ketika halaman selesai dimuat
 window.addEventListener('load', function() {
     console.log('Halaman BABuddy berhasil dimuat');
     console.log('Device width: ' + window.innerWidth + 'px');
 });
 
-// Smooth scroll untuk navigasi (jika ada)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();

@@ -10,12 +10,12 @@ const KATEGORI_INFO = {
   sayur: { label: "Sayuran",       icon: "icon/icon_sayur.png", contoh: "Bayam, Wortel, Kangkung" },
 };
 
-// ── Ambil hari ini ──
+// Ambil hari ini
 function getToday() {
   return DAY_NAMES[new Date().getDay()];
 }
 
-// ── Baca data water ──
+// Baca data water
 function getWaterToday() {
   try {
     const data = JSON.parse(localStorage.getItem("waterData") || "[]");
@@ -24,7 +24,7 @@ function getWaterToday() {
   } catch { return 0; }
 }
 
-// ── Baca data BAB ──
+// Baca data BAB
 function getBabToday() {
   try {
     const data = JSON.parse(localStorage.getItem("bowelData") || "[]");
@@ -32,14 +32,14 @@ function getBabToday() {
   } catch { return null; }
 }
 
-// ── Baca data food ──
+// Baca data food
 function getFoodToday() {
   try {
     return JSON.parse(localStorage.getItem("foodData") || "{}");
   } catch { return {}; }
 }
 
-// ── Hitung sehat ──
+// Hitung sehat
 function hitungSehat(food) {
   let terpenuhi = 0;
   const status = {};
@@ -51,9 +51,7 @@ function hitungSehat(food) {
   return { terpenuhi, total: 5, status };
 }
 
-// =========================================
-//  UPDATE CARD 4 SEHAT 5 SEMPURNA
-// =========================================
+// Update Card 4 sehat 5 sempurna
 function updateSehatCard(sehat) {
   const pct    = Math.round((sehat.terpenuhi / sehat.total) * 100);
   const kurang = sehat.total - sehat.terpenuhi;
@@ -77,9 +75,7 @@ function updateSehatCard(sehat) {
   }
 }
 
-// =========================================
-//  MODAL DETAIL (ikon kertas diklik)
-// =========================================
+// Modal Detail
 function bukaModalSehat(sehat) {
   const list = document.getElementById("sehatDetailList");
   list.innerHTML = "";
@@ -134,9 +130,7 @@ function tutupModalSehat() {
   document.getElementById("modalSehat").classList.remove("active");
 }
 
-// =========================================
-//  GENERATE & RENDER NOTIFIKASI
-// =========================================
+// Generate dan Render Notifikasi
 function renderNotifikasi(cups, bab, sehat) {
   const list = document.getElementById("notifList");
   list.innerHTML = "";
@@ -152,7 +146,7 @@ function renderNotifikasi(cups, bab, sehat) {
     notifs.push({ icon: "✅", text: "Konsumsi air hari ini sudah tercapai. Pertahankan!", level: "ok" });
   }
 
-  // ── Notif BAB ──
+  // Notif BAB
   if (!bab || bab.frek === 0) {
     notifs.push({ icon: "⚠️", text: "Perbanyak konsumsi serat, anda belum BAB hari ini.", level: "warning" });
   } else if (bab.frek > TARGET_FREK) {
@@ -161,12 +155,12 @@ function renderNotifikasi(cups, bab, sehat) {
     notifs.push({ icon: "✅", text: `BAB hari ini normal (${bab.frek}x). Tetap jaga pola makan!`, level: "ok" });
   }
 
-  // ── Notif Darah ──
+  // Notif Darah
   if (bab && bab.darah === "Blood") {
     notifs.push({ icon: "🚨", text: "Terdeteksi darah pada BAB hari ini. Segera konsultasi ke dokter!", level: "danger" });
   }
 
-  // ── Notif Makanan ──
+  // Notif Makanan
   const kurang = Object.entries(KATEGORI_INFO)
     .filter(([key]) => !sehat.status[key].ada)
     .map(([, info]) => info.label);
@@ -189,9 +183,7 @@ function renderNotifikasi(cups, bab, sehat) {
   });
 }
 
-// =========================================
-//  INIT
-// =========================================
+// Init
 document.addEventListener("DOMContentLoaded", () => {
 
   const cups  = getWaterToday();

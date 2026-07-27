@@ -1,7 +1,3 @@
-// =========================================
-//  BABuddy - Food Tracker Script
-// =========================================
-
 const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 
 const CATEGORIES = {
@@ -12,7 +8,7 @@ const CATEGORIES = {
   sayur: { label: "Sayuran",       hint: "Contoh: Bayam, Kangkung, Wortel" },
 };
 
-// ── Klasifikasi waktu makan ──
+// Klasifikasi waktu makan
 function getSlotMakan(waktu) {
   if (!waktu) return 'malam';
   const jam = parseInt(waktu.split(':')[0], 10);
@@ -27,9 +23,7 @@ const SLOT_LABEL = {
   malam   : '🌙 Makan Malam',
 };
 
-// =========================================
-//  RESET OTOMATIS SETIAP MINGGU BARU
-// =========================================
+// Reset Otomatis Tiap Minggu Baru
 function checkWeeklyReset() {
   try {
     const now = new Date();
@@ -56,9 +50,7 @@ let currentCategory  = null;
 let editDay          = null;
 let editHistoryIndex = null;
 
-// =========================================
-//  RENDER CARD — selalu tampilkan kosong
-// =========================================
+// Render Card
 function renderAll() {
   Object.keys(CATEGORIES).forEach(cat => {
     const body = document.getElementById("body-" + cat);
@@ -66,9 +58,7 @@ function renderAll() {
   });
 }
 
-// =========================================
-//  RENDER HISTORY — klasifikasi 3 slot makan
-// =========================================
+// Render History 3 makanan
 function renderHistory() {
   const list = document.getElementById("historyList");
   if (!list) return;
@@ -131,9 +121,7 @@ function renderHistory() {
   });
 }
 
-// =========================================
-//  TAMBAH — langsung ke riwayat
-// =========================================
+// Tambah
 function openModal(cat) {
   currentCategory = cat;
   document.getElementById("modalTitle").textContent = "Tambah " + CATEGORIES[cat].label;
@@ -151,7 +139,6 @@ function simpanMakanan() {
   if (!nama) { showToast("⚠️ Nama makanan tidak boleh kosong!"); return; }
   if (!currentCategory) return;
 
-  // Langsung simpan ke foodHistory hari ini
   const today = DAY_NAMES[new Date().getDay()];
   const hist  = loadHistory();
   if (!hist[today]) hist[today] = [];
@@ -164,9 +151,7 @@ function simpanMakanan() {
   closeModal();
 }
 
-// =========================================
-//  EDIT ITEM DI HISTORY
-// =========================================
+// Edit Item di History
 function editHistoryItem(day, idx) {
   editDay          = day;
   editHistoryIndex = idx;
@@ -192,9 +177,7 @@ function simpanEditHistory() {
   showToast("✅ History berhasil diupdate!");
 }
 
-// =========================================
-//  HAPUS ITEM DI HISTORY
-// =========================================
+// Hapus Item di History
 function hapusHistoryItem(day, idx) {
   const hist = loadHistory();
   const nama = hist[day][idx].nama;
@@ -204,15 +187,13 @@ function hapusHistoryItem(day, idx) {
   showToast("🗑️ " + nama + " dihapus dari riwayat.");
 }
 
-// =========================================
-//  TUTUP MODAL
-// =========================================
+// Tutup Modal
 function closeModal() {
   document.querySelectorAll(".modal-overlay").forEach(m => m.classList.remove("active"));
   currentCategory = null; editDay = null; editHistoryIndex = null;
 }
 
-// ── Toast ──
+// Toast
 function showToast(msg) {
   let t = document.getElementById("ft-toast");
   if (!t) {
@@ -228,7 +209,6 @@ function showToast(msg) {
   t._t = setTimeout(() => { t.style.opacity = "0"; }, 2500);
 }
 
-// ── DOMContentLoaded ──
 document.addEventListener("DOMContentLoaded", () => {
   checkWeeklyReset();
   renderAll();

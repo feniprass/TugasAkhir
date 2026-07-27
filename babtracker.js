@@ -50,7 +50,7 @@ let bowelData = [];
 
 function getTodayName() { return DAY_NAMES[new Date().getDay()]; }
 
-// ----- RENDER LOG LIST -----
+// Render
 function renderLogList() {
   const list = document.getElementById("bowelLogList");
   if (!list) return;
@@ -90,7 +90,7 @@ function renderLogList() {
   updateCard();
 }
 
-// ----- UPDATE CARD -----
+// Update Card
 function updateCard() {
   const today = getTodayName();
   const todayData = bowelData.find(d => d.hari === today);
@@ -111,9 +111,7 @@ function updateCard() {
   else                          statusEl.textContent = `Sering - ${frek}x sehari`;
 }
 
-// =========================================
-//  MODAL TAMBAH
-// =========================================
+// Modal Tambah
 function handleTambah() {
   const today = getTodayName();
   const displayEl = document.getElementById("inputHariDisplay");
@@ -152,9 +150,7 @@ function simpanCatatan() {
   showToast(`✅ Data ${hari} berhasil disimpan!`);
 }
 
-// =========================================
-//  MODAL HAPUS
-// =========================================
+// Modal Hapus
 function handleHapus() {
   const select = document.getElementById("hapusHari");
   if (!select) return;
@@ -192,7 +188,7 @@ function konfirmasiHapus() {
   }
 }
 
-// ----- DETAIL -----
+// Detail
 function handleDetail() {
   const content = document.getElementById("detailContent");
   if (!content) return;
@@ -228,9 +224,6 @@ function showToast(msg) {
   t._timer = setTimeout(() => { t.style.opacity = "0"; }, 2500);
 }
 
-// =========================================
-//  DOMContentLoaded
-// =========================================
 document.addEventListener("DOMContentLoaded", () => {
 
   checkWeeklyReset();

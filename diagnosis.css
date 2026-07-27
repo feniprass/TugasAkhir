@@ -403,7 +403,7 @@ body {
 .bar.red    { background:linear-gradient(to right,#EF5350,#D32F2F); }
 .bar.gray   { background:#BDBDBD; }
 
-/* ── Tekstur BAB ── */
+/* Tekstur BAB */
 .texture-row {
   display        : flex;
   align-items    : center;
@@ -419,7 +419,7 @@ body {
 .tex-bar      { height:100%; border-radius:20px; transition:width 0.5s ease; }
 .tex-count    { font-size:13px; font-weight:700; color:#888; min-width:30px; text-align:right; }
 
-/* ── Diagnosis items ── */
+/* Diagnosis items */
 .diagnosis-item {
   display        : flex;
   align-items    : flex-start;
@@ -447,7 +447,7 @@ body {
 .tag-buruk { background: #F44336; }
 .tag-info  { background: #90A4AE; }
 
-/* ── Note / Saran ── */
+/* Note */
 .note-card { gap: 8px; }
 
 .note-img {
@@ -471,7 +471,7 @@ body {
 }
 .note-item:last-child { border-bottom:none; padding-bottom:0; }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 @media (max-width: 1100px) {
   .bottom-grid  { grid-template-columns: 1fr 1fr; }
   .right-col    { display: contents; }
@@ -564,18 +564,14 @@ body {
     min-width  : unset;
   }
 
-  /* Summary row: 2 kolom */
   .summary-row { grid-template-columns: repeat(2,1fr); }
 
-  /* Bottom grid: 1 kolom */
   .bottom-grid {
     grid-template-columns : 1fr;
   }
 
-  /* right-col kembali ke block agar kartu-kartunya tersusun normal */
   .right-col { display: flex; flex-direction: column; gap: 16px; }
 
-  /* Tren mingguan: perkecil kolom agar tidak overflow */
   .week-head,
   .week-row {
     grid-template-columns : 60px 1fr 1fr 1fr 44px;

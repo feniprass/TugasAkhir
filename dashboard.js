@@ -1,10 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const today = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"][new Date().getDay()];
-
-    // =========================
-    // GREETING DINAMIS
-    // =========================
     (function setGreeting() {
         var el = document.getElementById('greetingText');
         if (!el) return;
@@ -13,9 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })();
 
-    // =========================
-    // HELPER: update checkbox
-    // =========================
+    // Update Checkbox
     function setCheckbox(index, teks, tercapai) {
         const items = document.querySelectorAll(".checkbox-item");
         const textEls = document.querySelectorAll(".checkbox-text");
@@ -34,9 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // =========================
-    // LOAD DATA
-    // =========================
+
     function loadFoodHistory() {
         try {
             return JSON.parse(localStorage.getItem("foodHistory") || "{}");
@@ -45,9 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // =========================
-    // AIR
-    // =========================
+    // Air
     function updateAirCard() {
         try {
             const waterData  = JSON.parse(localStorage.getItem("waterData") || "[]");
@@ -66,16 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 else if (cups >= 1) { cardBtn.textContent = "Kurang";   cardBtn.style.background = "#E8894D"; }
                 else                { cardBtn.textContent = "Belum";    cardBtn.style.background = "#aaa"; }
             }
-
-            // Centang kalau sudah >= 8 gelas (2 liter)
             setCheckbox(0, liters + " Liter konsumsi air", cups >= 8);
 
         } catch (e) { console.error("Error air:", e); }
     }
 
-    // =========================
     // BAB
-    // =========================
     function updateBABCard() {
         try {
             const babData  = JSON.parse(localStorage.getItem("bowelData") || "[]");
@@ -97,23 +83,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 else if (frek <= 2) { cardBtn.textContent = "Normal"; cardBtn.style.background = "#4CAF50"; }
                 else                { cardBtn.textContent = "Sering"; cardBtn.style.background = "#E8894D"; }
             }
-
-            // Centang kalau sudah BAB minimal 1x
             setCheckbox(1, frek + "x pup (" + tipe + ")", frek >= 1);
 
         } catch (e) { console.error("Error BAB:", e); }
     }
 
-    // =========================
-    // FOOD
-    // =========================
+    // Food
     function updateFoodChecklist() {
         try {
             const history    = loadFoodHistory();
             const todayData  = history[today] || [];
             const totalMakan = todayData.length;
 
-            // Centang kalau sudah makan minimal 3x
             setCheckbox(2, totalMakan + "x makan", totalMakan >= 3);
 
         } catch (e) { console.error("Error food:", e); }
@@ -134,14 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return stats;
     }
 
-    // =========================
-    // CHART
-    // =========================
+    // Chart
     function renderChart() {
         const ctx = document.getElementById('statsChart');
         if (!ctx) return;
 
-        // Hancurkan chart lama kalau ada
+        // Hancurkan chart lama 
         const existing = Chart.getChart(ctx);
         if (existing) existing.destroy();
 
@@ -181,9 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // =========================
-    // NOTE HARIAN (artikel rotasi per hari)
-    // =========================
+    // Note Harian
     function updateNoteHarian() {
         const artikelList = [
             {
@@ -226,18 +203,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (noteText)  noteText.textContent  = artikel.isi;
     }
 
-    // =========================
-    // INIT
-    // =========================
+    // Init
     updateAirCard();
     updateBABCard();
     updateFoodChecklist();
     renderChart();
     updateNoteHarian();
 
-    // =========================
-    // NAVIGASI
-    // =========================
+    // Navigasi
     document.getElementById('PemantauAirBtn')?.addEventListener('click', (e) => {
         e.preventDefault();
         window.location.href = 'watertracker.html';
